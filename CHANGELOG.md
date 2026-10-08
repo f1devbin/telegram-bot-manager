@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.1 — 2026-10-08
+
+### Fixed
+- Bot avatar was not shown: api.telegram.org serves files without CORS headers, so the avatar is now loaded as a regular image (via a proxy it is still downloaded as a blob).
+
 ## 3.0.0 — 2026-10-08
 
 Complete rewrite as a static site for GitHub Pages. The project is renamed from **getWebhookInfo** to **Telegram Bot Manager**.
@@ -24,7 +29,6 @@ Complete rewrite as a static site for GitHub Pages. The project is renamed from 
 - “Drop pending updates” no longer resets the webhook secret token and settings silently.
 - “Delete webhook” could never drop pending updates (the checkbox was missing).
 - XSS through unescaped API responses and error messages.
-- Bot token was exposed in the avatar image URL.
 - Public `stats_counter.json` file and lack of CSRF protection (no server anymore).
 - Profile save sent all fields every time and hit the `setMyName` rate limit.
 - `ip_address` of an active webhook is no longer pinned implicitly when saving.

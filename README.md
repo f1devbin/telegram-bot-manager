@@ -35,7 +35,7 @@ A free, open-source web tool to manage a Telegram bot through the Bot API: **set
 - The site is static (GitHub Pages). There is **no server** that could store or log your token.
 - Requests go from your browser directly to `https://api.telegram.org`, or to an API server you choose.
 - By default the token is kept only in the current tab (`sessionStorage`). “Remember on this device” uses `localStorage`; **Disconnect** clears both.
-- The bot avatar is downloaded as a blob, so the token never appears in the page markup.
+- The bot avatar is loaded straight from the Bot API server with `referrerpolicy="no-referrer"`; through a CORS proxy it is downloaded as a blob instead.
 - Strict Content Security Policy, no analytics, no third-party scripts or fonts.
 
 If a token leaks, revoke it with [@BotFather](https://t.me/BotFather) → `/revoke`.

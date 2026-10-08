@@ -93,9 +93,14 @@ export function createApi({ token, baseUrl = DEFAULT_API_BASE, timeout = 20000, 
     }
   }
 
-  // Downloads a file (e.g. the bot avatar) as a Blob so the token never appears in the DOM.
+  const fileUrl = (filePath) => `${base}/file/bot${token}/${filePath}`;
+  const defaultServer = base === DEFAULT_API_BASE;
+
+  // Downloads a file as a Blob. The official server sends no CORS headers for files,
+  // so this only works through a proxy; skip the doomed request to keep the console clean.
   async function fetchFile(filePath) {
-    const res = await fetch(`${base}/file/bot${token}/${filePath}`, {
+    if (defaultServer) throw new TelegramApiError('getFile', { network: true, description: 'Files are not CORS-enabled' });
+    const res = await fetch(fileUrl(filePath), {
       credentials: 'omit',
       referrerPolicy: 'no-referrer',
     });
@@ -103,5 +108,5 @@ export function createApi({ token, baseUrl = DEFAULT_API_BASE, timeout = 20000, 
     return res.blob();
   }
 
-  return { call, fetchFile, baseUrl: base };
+  return { call, fetchFile, fileUrl, baseUrl: base };
 }

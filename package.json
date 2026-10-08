@@ -1,6 +1,6 @@
 {
   "name": "telegram-bot-manager",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "private": true,
   "description": "Free online Telegram Bot Manager: set, check and delete webhooks, edit commands, profile, menu button and admin rights right in your browser.",
   "type": "module",
