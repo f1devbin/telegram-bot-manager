@@ -125,7 +125,8 @@ async function openApp({ theme = 'dark', lang = '', width = 1280, height = 900 }
   page.on('dialog', (d) => d.accept());
   await page.route('https://api.telegram.org/**', async (route) => {
     const url = new URL(route.request().url());
-    if (url.pathname.startsWith('/file/')) return route.fulfill({ status: 200, contentType: 'image/png', body: AVATAR, headers: { 'access-control-allow-origin': '*' } });
+    if (url.pathname.startsWith('/file/')) // Like the real server: files come without CORS headers.
+      return route.fulfill({ status: 200, contentType: 'image/png', body: AVATAR });
     const method = url.pathname.split('/').pop();
     const body = route.request().postData() ?? '';
     const params = Object.fromEntries(new URLSearchParams(body));

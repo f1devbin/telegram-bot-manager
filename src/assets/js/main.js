@@ -157,10 +157,19 @@ async function loadAvatar() {
     if (!sizes?.length) return;
     const size = sizes.find((s) => s.width >= 160) ?? sizes[sizes.length - 1];
     const file = await app.api.call('getFile', { file_id: size.file_id });
-    const blob = await app.api.fetchFile(file.file_path);
-    if (avatarUrl) URL.revokeObjectURL(avatarUrl);
-    avatarUrl = URL.createObjectURL(blob);
-    container.append(el('img', { src: avatarUrl, alt: '', width: 112, height: 112 }));
+    let src;
+    try {
+      // Works through a CORS proxy; keeps the token out of the DOM.
+      const blob = await app.api.fetchFile(file.file_path);
+      if (avatarUrl) URL.revokeObjectURL(avatarUrl);
+      avatarUrl = URL.createObjectURL(blob);
+      src = avatarUrl;
+    } catch {
+      // api.telegram.org serves files without CORS headers: fall back to a plain <img>.
+      // The URL contains the token but is used only by this browser (no referrer is sent).
+      src = app.api.fileUrl(file.file_path);
+    }
+    container.append(el('img', { src, alt: '', width: 112, height: 112, referrerpolicy: 'no-referrer' }));
   } catch {
     // The letter fallback stays visible.
   }
