@@ -92,7 +92,7 @@ main { flex: 1; }
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
 /* Links inside text must not rely on color alone. */
-p a, li a, td a, .hint a, .alert a { text-decoration: underline; text-underline-offset: 2px; }
+p a, li a, td a, .hint a, .alert a, .footer-bottom a { text-decoration: underline; text-underline-offset: 2px; }
 .footer-links a, .dropdown-menu a, .guide-card, a.btn, .breadcrumbs a { text-decoration: none; }
 
 h1, h2, h3 { line-height: 1.25; margin: 0 0 .6em; }
