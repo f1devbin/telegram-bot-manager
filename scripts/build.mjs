@@ -263,7 +263,11 @@ export async function build(outDir = join(ROOT, 'dist')) {
   await cp(join(SRC, 'assets'), join(outDir, 'assets'), { recursive: true });
   if (existsSync(join(SRC, 'static'))) await cp(join(SRC, 'static'), outDir, { recursive: true });
 
+  // Inlined to apply the saved theme before first paint without an extra blocking request.
+  const themeScript = (await readFile(join(SRC, 'assets', 'js', 'theme.js'), 'utf8')).trim();
   const site = {
+    themeScript,
+    themeHash: `sha256-${createHash('sha256').update(themeScript).digest('base64')}`,
     url: SITE_URL,
     repo: REPO_URL,
     version: await hashDir(join(SRC, 'assets')),
