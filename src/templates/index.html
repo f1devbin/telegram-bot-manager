@@ -1,0 +1,366 @@
+<section class="hero" id="connect-section">
+  <div class="container hero-grid">
+    <div class="hero-text">
+      <p class="eyebrow">{{t.home.eyebrow}}</p>
+      <h1>{{t.home.h1}}</h1>
+      <p class="lead">{{t.home.lead}}</p>
+      <ul class="hero-points">
+        <li>{{t.home.point1}}</li>
+        <li>{{t.home.point2}}</li>
+        <li>{{t.home.point3}}</li>
+      </ul>
+    </div>
+    <form class="card connect-card" id="connect-form" novalidate>
+      <h2>{{t.ui.connect.title}}</h2>
+      <div class="field">
+        <label for="token">{{t.ui.connect.token}}</label>
+        <div class="input-group">
+          <input id="token" name="token" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="123456789:AAH…" required>
+          <button type="button" class="btn btn-ghost" data-reveal="token" aria-pressed="false">{{t.ui.common.show}}</button>
+        </div>
+        <p class="hint">{{{t.ui.connect.tokenHint}}}</p>
+      </div>
+      <label class="check"><input type="checkbox" id="remember"> <span>{{t.ui.connect.remember}}</span></label>
+      <details class="advanced">
+        <summary>{{t.ui.connect.advanced}}</summary>
+        <div class="field">
+          <label for="api-base">{{t.ui.connect.apiBase}}</label>
+          <input id="api-base" type="url" placeholder="https://api.telegram.org" spellcheck="false">
+          <p class="hint">{{{t.ui.connect.apiBaseHint}}}</p>
+        </div>
+      </details>
+      <div class="alert alert-danger" id="connect-error" role="alert" hidden></div>
+      <button class="btn btn-primary btn-block" type="submit">{{t.ui.connect.submit}}</button>
+      <p class="privacy-note">{{t.ui.connect.privacy}}</p>
+    </form>
+  </div>
+  <noscript><div class="container"><p class="alert alert-danger">{{t.ui.noscript}}</p></div></noscript>
+</section>
+
+<section class="container app" id="app" hidden aria-label="{{t.ui.appLabel}}">
+  <aside class="card sidebar">
+    <div class="avatar" id="bot-avatar"><span class="avatar-fallback" id="bot-avatar-fallback"></span></div>
+    <h2 class="bot-name" id="bot-name"></h2>
+    <a class="bot-username" id="bot-username" target="_blank" rel="noopener"></a>
+    <dl class="kv">
+      <div><dt>ID</dt><dd><code id="bot-id"></code> <button type="button" class="link-btn" data-copy-from="bot-id">{{t.ui.common.copy}}</button></dd></div>
+      <div><dt>{{t.ui.sidebar.webhook}}</dt><dd id="bot-webhook-status"></dd></div>
+      <div><dt>{{t.ui.sidebar.stars}}</dt><dd id="bot-stars">—</dd></div>
+    </dl>
+    <details class="caps" id="bot-caps">
+      <summary class="sidebar-title">{{t.ui.sidebar.capabilities}}</summary>
+      <ul class="flags" id="bot-flags"></ul>
+      <p class="hint">{{{t.ui.sidebar.botfatherHint}}}</p>
+    </details>
+    <div class="sidebar-actions">
+      <button type="button" class="btn btn-secondary" id="refresh-all">{{t.ui.common.refresh}}</button>
+      <button type="button" class="btn btn-ghost danger-text" id="disconnect">{{t.ui.sidebar.disconnect}}</button>
+    </div>
+  </aside>
+
+  <div class="workspace">
+    <div class="tabs" role="tablist" aria-label="{{t.ui.appLabel}}">
+      <button type="button" role="tab" id="tab-webhook" aria-controls="panel-webhook" data-tab="webhook">{{t.ui.tabs.webhook}}</button>
+      <button type="button" role="tab" id="tab-profile" aria-controls="panel-profile" data-tab="profile">{{t.ui.tabs.profile}}</button>
+      <button type="button" role="tab" id="tab-commands" aria-controls="panel-commands" data-tab="commands">{{t.ui.tabs.commands}}</button>
+      <button type="button" role="tab" id="tab-menu" aria-controls="panel-menu" data-tab="menu">{{t.ui.tabs.menu}}</button>
+      <button type="button" role="tab" id="tab-rights" aria-controls="panel-rights" data-tab="rights">{{t.ui.tabs.rights}}</button>
+      <button type="button" role="tab" id="tab-dev" aria-controls="panel-dev" data-tab="dev">{{t.ui.tabs.dev}}</button>
+    </div>
+
+    <!-- Webhook -->
+    <section class="card panel" role="tabpanel" id="panel-webhook" aria-labelledby="tab-webhook" hidden>
+      <div class="panel-head">
+        <h2>{{t.ui.webhook.title}}</h2>
+        <button type="button" class="btn btn-ghost" id="webhook-refresh">{{t.ui.common.refresh}}</button>
+      </div>
+      <div id="webhook-status" aria-live="polite"></div>
+
+      <form id="webhook-form" class="form" novalidate>
+        <h3>{{t.ui.webhook.setTitle}}</h3>
+        <div class="field">
+          <label for="wh-url">{{t.ui.webhook.url}}</label>
+          <input id="wh-url" type="url" required placeholder="https://example.com/telegram/webhook" spellcheck="false">
+          <p class="hint">{{t.ui.webhook.urlHint}}</p>
+        </div>
+        <div class="grid-2">
+          <div class="field">
+            <label for="wh-secret">{{t.ui.webhook.secret}}</label>
+            <div class="input-group">
+              <input id="wh-secret" type="text" maxlength="256" autocomplete="off" spellcheck="false" placeholder="A-Z a-z 0-9 _ -">
+              <button type="button" class="btn btn-ghost" id="wh-secret-generate">{{t.ui.webhook.generate}}</button>
+            </div>
+            <p class="hint">{{t.ui.webhook.secretHint}}</p>
+          </div>
+          <div class="field">
+            <label for="wh-max">{{t.ui.webhook.maxConnections}}</label>
+            <input id="wh-max" type="number" min="1" max="100" step="1" value="40">
+            <p class="hint">{{t.ui.webhook.maxConnectionsHint}}</p>
+          </div>
+          <div class="field">
+            <label for="wh-ip">{{t.ui.webhook.ip}}</label>
+            <input id="wh-ip" type="text" spellcheck="false" placeholder="203.0.113.10">
+            <p class="hint">{{t.ui.webhook.ipHint}}</p>
+          </div>
+          <div class="field">
+            <label for="wh-cert">{{t.ui.webhook.certificate}}</label>
+            <input id="wh-cert" type="file" accept=".pem,.crt,.cer,.key,application/x-pem-file">
+            <p class="hint">{{t.ui.webhook.certificateHint}}</p>
+          </div>
+        </div>
+
+        <fieldset class="fieldset">
+          <legend>{{t.ui.webhook.allowedUpdates}}</legend>
+          <div class="segmented" role="radiogroup">
+            <label><input type="radio" name="wh-updates-mode" value="default" checked> <span>{{t.ui.webhook.updatesDefault}}</span></label>
+            <label><input type="radio" name="wh-updates-mode" value="custom"> <span>{{t.ui.webhook.updatesCustom}}</span></label>
+          </div>
+          <p class="hint">{{{t.ui.webhook.updatesHint}}}</p>
+          <div id="wh-updates" class="updates" hidden></div>
+        </fieldset>
+
+        <label class="check"><input type="checkbox" id="wh-drop"> <span>{{t.ui.webhook.dropPending}}</span></label>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">{{t.ui.webhook.submit}}</button>
+          <button type="button" class="btn btn-ghost" data-curl="webhook-form">{{t.ui.common.curl}}</button>
+        </div>
+        <div class="curl-box" hidden></div>
+      </form>
+
+      <div class="danger-zone">
+        <h3>{{t.ui.webhook.dangerTitle}}</h3>
+        <form id="drop-form" class="danger-row" novalidate>
+          <div>
+            <p class="danger-title">{{t.ui.webhook.dropTitle}}</p>
+            <p class="hint">{{t.ui.webhook.dropHint}}</p>
+            <div class="field compact">
+              <label for="drop-secret">{{t.ui.webhook.dropSecret}}</label>
+              <input id="drop-secret" type="text" maxlength="256" autocomplete="off" spellcheck="false">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-secondary">{{t.ui.webhook.dropSubmit}}</button>
+        </form>
+        <form id="delete-webhook-form" class="danger-row" novalidate>
+          <div>
+            <p class="danger-title">{{t.ui.webhook.deleteTitle}}</p>
+            <p class="hint">{{t.ui.webhook.deleteHint}}</p>
+            <label class="check"><input type="checkbox" id="delete-drop"> <span>{{t.ui.webhook.dropPending}}</span></label>
+          </div>
+          <button type="submit" class="btn btn-danger">{{t.ui.webhook.deleteSubmit}}</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Profile -->
+    <section class="card panel" role="tabpanel" id="panel-profile" aria-labelledby="tab-profile" hidden>
+      <div class="panel-head">
+        <h2>{{t.ui.profile.title}}</h2>
+        <div class="field inline">
+          <label for="profile-lang">{{t.ui.common.language}}</label>
+          <select id="profile-lang" data-language-select></select>
+        </div>
+      </div>
+      <p class="muted">{{t.ui.profile.intro}}</p>
+      <form id="profile-form" class="form" novalidate>
+        <div class="field">
+          <label for="profile-name">{{t.ui.profile.name}} <span class="counter" data-counter="profile-name" data-max="64"></span></label>
+          <input id="profile-name" type="text" maxlength="64">
+        </div>
+        <div class="field">
+          <label for="profile-short">{{t.ui.profile.shortDescription}} <span class="counter" data-counter="profile-short" data-max="120"></span></label>
+          <textarea id="profile-short" rows="2" maxlength="120"></textarea>
+          <p class="hint">{{t.ui.profile.shortDescriptionHint}}</p>
+        </div>
+        <div class="field">
+          <label for="profile-description">{{t.ui.profile.description}} <span class="counter" data-counter="profile-description" data-max="512"></span></label>
+          <textarea id="profile-description" rows="6" maxlength="512"></textarea>
+          <p class="hint">{{t.ui.profile.descriptionHint}}</p>
+        </div>
+        <p class="hint">{{t.ui.profile.emptyHint}}</p>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">{{t.ui.profile.submit}}</button>
+          <button type="button" class="btn btn-ghost" data-curl="profile-form">{{t.ui.common.curl}}</button>
+        </div>
+        <div class="curl-box" hidden></div>
+      </form>
+
+      <hr class="divider">
+
+      <form id="photo-form" class="form" novalidate>
+        <h3>{{t.ui.photo.title}}</h3>
+        <p class="muted">{{t.ui.photo.intro}}</p>
+        <div class="segmented" role="radiogroup">
+          <label><input type="radio" name="photo-type" value="static" checked> <span>{{t.ui.photo.static}}</span></label>
+          <label><input type="radio" name="photo-type" value="animated"> <span>{{t.ui.photo.animated}}</span></label>
+        </div>
+        <div class="grid-2">
+          <div class="field">
+            <label for="photo-file">{{t.ui.photo.file}}</label>
+            <input id="photo-file" type="file" accept="image/jpeg,image/png,video/mp4">
+            <p class="hint" id="photo-hint-static">{{t.ui.photo.staticHint}}</p>
+            <p class="hint" id="photo-hint-animated" hidden>{{t.ui.photo.animatedHint}}</p>
+          </div>
+          <div class="field" id="photo-frame-field" hidden>
+            <label for="photo-frame">{{t.ui.photo.mainFrame}}</label>
+            <input id="photo-frame" type="number" min="0" step="0.1" value="0">
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">{{t.ui.photo.submit}}</button>
+          <button type="button" class="btn btn-ghost danger-text" id="photo-remove">{{t.ui.photo.remove}}</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Commands -->
+    <section class="card panel" role="tabpanel" id="panel-commands" aria-labelledby="tab-commands" hidden>
+      <div class="panel-head">
+        <h2>{{t.ui.commands.title}}</h2>
+      </div>
+      <p class="muted">{{t.ui.commands.intro}}</p>
+      <div class="grid-4 scope-grid">
+        <div class="field">
+          <label for="cmd-scope">{{t.ui.commands.scope}}</label>
+          <select id="cmd-scope"></select>
+        </div>
+        <div class="field" id="cmd-chat-field" hidden>
+          <label for="cmd-chat-id">chat_id</label>
+          <input id="cmd-chat-id" type="text" spellcheck="false" placeholder="-1001234567890 / @group">
+        </div>
+        <div class="field" id="cmd-user-field" hidden>
+          <label for="cmd-user-id">user_id</label>
+          <input id="cmd-user-id" type="text" inputmode="numeric" spellcheck="false" placeholder="123456789">
+        </div>
+        <div class="field">
+          <label for="cmd-lang">{{t.ui.common.language}}</label>
+          <select id="cmd-lang" data-language-select></select>
+        </div>
+      </div>
+      <p class="hint" id="cmd-scope-hint"></p>
+      <form id="commands-form" class="form" novalidate>
+        <div class="field">
+          <label for="cmd-text">{{t.ui.commands.list}} <span class="counter" id="cmd-count"></span></label>
+          <textarea id="cmd-text" rows="10" class="mono" spellcheck="false" placeholder="start - Start the bot&#10;help - Show help&#10;settings - Open settings"></textarea>
+          <p class="hint">{{{t.ui.commands.formatHint}}}</p>
+          <ul class="field-errors" id="cmd-errors"></ul>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">{{t.ui.commands.submit}}</button>
+          <button type="button" class="btn btn-ghost" id="cmd-load">{{t.ui.commands.load}}</button>
+          <button type="button" class="btn btn-ghost" data-curl="commands-form">{{t.ui.common.curl}}</button>
+          <button type="button" class="btn btn-ghost danger-text" id="cmd-delete">{{t.ui.commands.delete}}</button>
+        </div>
+        <div class="curl-box" hidden></div>
+      </form>
+    </section>
+
+    <!-- Menu button -->
+    <section class="card panel" role="tabpanel" id="panel-menu" aria-labelledby="tab-menu" hidden>
+      <div class="panel-head">
+        <h2>{{t.ui.menu.title}}</h2>
+      </div>
+      <p class="muted">{{t.ui.menu.intro}}</p>
+      <div class="grid-2">
+        <div class="field">
+          <label for="menu-chat-id">{{t.ui.menu.chatId}}</label>
+          <div class="input-group">
+            <input id="menu-chat-id" type="text" inputmode="numeric" spellcheck="false" placeholder="{{t.ui.menu.chatIdPlaceholder}}">
+            <button type="button" class="btn btn-ghost" id="menu-load">{{t.ui.common.load}}</button>
+          </div>
+        </div>
+      </div>
+      <form id="menu-form" class="form" novalidate>
+        <div class="segmented" role="radiogroup">
+          <label><input type="radio" name="menu-type" value="default" checked> <span>{{t.ui.menu.typeDefault}}</span></label>
+          <label><input type="radio" name="menu-type" value="commands"> <span>{{t.ui.menu.typeCommands}}</span></label>
+          <label><input type="radio" name="menu-type" value="web_app"> <span>{{t.ui.menu.typeWebApp}}</span></label>
+        </div>
+        <div class="grid-2" id="menu-webapp-fields" hidden>
+          <div class="field">
+            <label for="menu-text">{{t.ui.menu.text}}</label>
+            <input id="menu-text" type="text" placeholder="Open app">
+          </div>
+          <div class="field">
+            <label for="menu-url">{{t.ui.menu.url}}</label>
+            <input id="menu-url" type="url" spellcheck="false" placeholder="https://example.com/app">
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">{{t.ui.menu.submit}}</button>
+          <button type="button" class="btn btn-ghost" data-curl="menu-form">{{t.ui.common.curl}}</button>
+        </div>
+        <div class="curl-box" hidden></div>
+      </form>
+    </section>
+
+    <!-- Admin rights -->
+    <section class="card panel" role="tabpanel" id="panel-rights" aria-labelledby="tab-rights" hidden>
+      <div class="panel-head">
+        <h2>{{t.ui.rights.title}}</h2>
+      </div>
+      <p class="muted">{{t.ui.rights.intro}}</p>
+      <div class="segmented" role="radiogroup">
+        <label><input type="radio" name="rights-target" value="groups" checked> <span>{{t.ui.rights.groups}}</span></label>
+        <label><input type="radio" name="rights-target" value="channels"> <span>{{t.ui.rights.channels}}</span></label>
+      </div>
+      <form id="rights-form" class="form" novalidate>
+        <div class="check-grid" id="rights-grid"></div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">{{t.ui.rights.submit}}</button>
+          <button type="button" class="btn btn-ghost" id="rights-all">{{t.ui.common.selectAll}}</button>
+          <button type="button" class="btn btn-ghost" id="rights-none">{{t.ui.common.selectNone}}</button>
+          <button type="button" class="btn btn-ghost" data-curl="rights-form">{{t.ui.common.curl}}</button>
+          <button type="button" class="btn btn-ghost danger-text" id="rights-clear">{{t.ui.rights.clear}}</button>
+        </div>
+        <div class="curl-box" hidden></div>
+      </form>
+    </section>
+
+    <!-- Developer -->
+    <section class="card panel" role="tabpanel" id="panel-dev" aria-labelledby="tab-dev" hidden>
+      <div class="panel-head">
+        <h2>{{t.ui.dev.title}}</h2>
+      </div>
+      <h3>{{t.ui.dev.raw}}</h3>
+      <p class="muted">{{t.ui.dev.rawIntro}}</p>
+      <div id="raw-data" class="stack"></div>
+      <div class="panel-head">
+        <h3>{{t.ui.dev.log}}</h3>
+        <button type="button" class="btn btn-ghost" id="log-clear">{{t.ui.dev.clearLog}}</button>
+      </div>
+      <p class="muted">{{t.ui.dev.logIntro}}</p>
+      <div id="request-log" class="stack"></div>
+    </section>
+  </div>
+</section>
+
+<div class="landing" id="landing">
+  <section class="container section" id="features">
+    <h2>{{t.home.featuresTitle}}</h2>
+    <div class="feature-grid">{{{home.features}}}</div>
+  </section>
+
+  <section class="container section" id="how-it-works">
+    <h2>{{t.home.howTitle}}</h2>
+    <ol class="steps">{{{home.steps}}}</ol>
+  </section>
+
+  <section class="container section security" id="security">
+    <h2>{{t.home.securityTitle}}</h2>
+    <ul class="check-list">{{{home.security}}}</ul>
+  </section>
+
+  <section class="container section" id="guides">
+    <h2>{{t.home.guidesTitle}}</h2>
+    <div class="guide-grid">{{{home.guideCards}}}</div>
+  </section>
+
+  <section class="container section" id="faq">
+    <h2>{{t.home.faqTitle}}</h2>
+    <div class="faq">{{{home.faq}}}</div>
+  </section>
+</div>
+
+<div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="false"></div>
+<script type="application/json" id="i18n-data">{{{page.i18nJson}}}</script>

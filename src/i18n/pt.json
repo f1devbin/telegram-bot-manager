@@ -1,0 +1,514 @@
+{
+  "meta": {
+    "title": "Telegram Bot Manager — configurar e verificar webhook online",
+    "description": "Ferramenta gratuita para bots do Telegram: configure, verifique (getWebhookInfo) e exclua webhooks, edite comandos, perfil, botão de menu e permissões de administrador.",
+    "ogImageAlt": "Telegram Bot Manager — ferramenta online para webhooks e configurações de bots"
+  },
+  "ui": {
+    "skip": "Pular para o conteúdo",
+    "home": "início",
+    "mainNav": "Navegação principal",
+    "guides": "Guias",
+    "language": "Idioma",
+    "toggleTheme": "Alternar modo escuro",
+    "noscript": "O Telegram Bot Manager precisa de JavaScript: todas as requisições à Telegram Bot API são enviadas diretamente do seu navegador.",
+    "appLabel": "Configurações do bot",
+    "related": "Mais guias",
+    "notFound": "Esta página não existe. Abra o gerenciador de bots ou escolha um idioma:",
+    "cta": {
+      "text": "Faça em poucos cliques — sem código, sem servidor, direto no navegador."
+    },
+    "footer": {
+      "tagline": "Ferramenta web gratuita e de código aberto para gerenciar bots do Telegram pela Bot API: webhooks, comandos, perfil, botão de menu e permissões de administrador.",
+      "disclaimer": "Ferramenta não oficial. Não é afiliada nem endossada pelo Telegram.",
+      "project": "Projeto",
+      "issues": "Relatar um problema",
+      "license": "Licença MIT"
+    },
+    "common": {
+      "show": "Mostrar",
+      "refresh": "Atualizar",
+      "copy": "Copiar",
+      "curl": "Ver curl",
+      "language": "Idioma",
+      "load": "Carregar",
+      "selectAll": "Selecionar tudo",
+      "selectNone": "Limpar tudo"
+    },
+    "connect": {
+      "title": "Conecte seu bot",
+      "token": "Token do bot",
+      "tokenHint": "Obtenha com o <a href=\"https://t.me/BotFather\" target=\"_blank\" rel=\"noopener\">@BotFather</a> → /mybots → API Token.",
+      "remember": "Lembrar neste dispositivo",
+      "advanced": "Avançado: servidor da API",
+      "apiBase": "URL do servidor Bot API",
+      "apiBaseHint": "Deixe vazio para usar <code>https://api.telegram.org</code>. Use seu próprio <a href=\"https://github.com/f1devbin/telegram-bot-manager#cors-proxy\" target=\"_blank\" rel=\"noopener\">proxy</a> se o Telegram estiver bloqueado na sua rede, ou um servidor Bot API local.",
+      "submit": "Conectar",
+      "privacy": "🔒 O token fica no seu navegador e é enviado apenas ao servidor da Bot API."
+    },
+    "sidebar": {
+      "webhook": "Webhook",
+      "stars": "Saldo de Stars",
+      "capabilities": "Recursos",
+      "botfatherHint": "Essas opções são alteradas no <a href=\"https://t.me/BotFather\" target=\"_blank\" rel=\"noopener\">@BotFather</a> → Bot Settings.",
+      "disconnect": "Desconectar"
+    },
+    "tabs": {
+      "webhook": "Webhook",
+      "profile": "Perfil",
+      "commands": "Comandos",
+      "menu": "Botão de menu",
+      "rights": "Permissões de admin",
+      "dev": "Desenvolvedor"
+    },
+    "webhook": {
+      "title": "Status do webhook",
+      "setTitle": "Configurar webhook",
+      "url": "URL do webhook",
+      "urlHint": "Somente HTTPS. Portas suportadas: 443, 80, 88, 8443.",
+      "secret": "Token secreto",
+      "generate": "Gerar",
+      "secretHint": "Enviado no cabeçalho X-Telegram-Bot-Api-Secret-Token. O Telegram nunca o devolve — salve-o no seu servidor. Vazio = sem segredo.",
+      "maxConnections": "Conexões máximas",
+      "maxConnectionsHint": "1–100, padrão 40. Diminua para reduzir a carga no seu servidor.",
+      "ip": "Endereço IP fixo (opcional)",
+      "ipHint": "Envia as atualizações para este IP em vez de resolver o domínio via DNS.",
+      "certificate": "Certificado autoassinado (opcional)",
+      "certificateHint": "Envie a chave pública (PEM) apenas se o seu servidor usa um certificado autoassinado.",
+      "allowedUpdates": "allowed_updates",
+      "updatesDefault": "Padrão",
+      "updatesCustom": "Escolher tipos",
+      "updatesHint": "Padrão = todos os tipos de atualização exceto <code>chat_member</code>, <code>message_reaction</code> e <code>message_reaction_count</code>; esses só chegam se forem escolhidos explicitamente.",
+      "dropPending": "Descartar atualizações pendentes (drop_pending_updates)",
+      "submit": "Configurar webhook",
+      "dangerTitle": "Zona de perigo",
+      "dropTitle": "Descartar atualizações pendentes",
+      "dropHint": "Reconfigura o webhook atual com drop_pending_updates. Digite o token secreto novamente para mantê-lo; caso contrário, ele será removido. IP fixo e certificado enviado não são mantidos — nesse caso use o formulário acima.",
+      "dropSecret": "Token secreto atual (opcional)",
+      "dropSubmit": "Descartar",
+      "deleteTitle": "Excluir webhook",
+      "deleteHint": "O bot deixa de receber atualizações na URL e pode voltar a usar getUpdates (long polling).",
+      "deleteSubmit": "Excluir webhook"
+    },
+    "profile": {
+      "title": "Perfil do bot",
+      "intro": "O nome e as descrições podem ser definidos separadamente para cada idioma do usuário. “Todos os idiomas” é o valor padrão.",
+      "name": "Nome",
+      "shortDescription": "Descrição curta",
+      "shortDescriptionHint": "Exibida no perfil do bot e nas prévias de links.",
+      "description": "Descrição",
+      "descriptionHint": "Exibida em um chat vazio: “O que este bot pode fazer?”.",
+      "emptyHint": "Para um idioma específico, um campo vazio remove o valor traduzido. Apenas os campos alterados são enviados.",
+      "submit": "Salvar perfil"
+    },
+    "photo": {
+      "title": "Foto de perfil",
+      "intro": "Envie uma nova foto ou um avatar em vídeo para o bot (setMyProfilePhoto).",
+      "static": "Foto",
+      "animated": "Vídeo",
+      "file": "Arquivo",
+      "staticHint": "Funciona melhor um JPEG ou PNG quadrado.",
+      "animatedHint": "Vídeo MPEG4 quadrado, sem som e com poucos segundos — como um avatar em vídeo comum do Telegram.",
+      "mainFrame": "Quadro de capa (segundos)",
+      "submit": "Enviar",
+      "remove": "Remover foto"
+    },
+    "commands": {
+      "title": "Comandos do bot",
+      "intro": "Os comandos aparecem no botão Menu e ao digitar “/”. Você pode definir listas diferentes para cada escopo e idioma.",
+      "scope": "Escopo (scope)",
+      "list": "Comandos",
+      "formatHint": "Um por linha: <code>comando - descrição</code>. Até 100 comandos; nome: a–z, 0–9, _ (máx. 32); descrição: 1–256 caracteres. Adicione <code>[ephemeral]</code> no final para comandos cuja resposta só quem enviou vê.",
+      "submit": "Salvar comandos",
+      "load": "Recarregar",
+      "delete": "Excluir para este escopo"
+    },
+    "menu": {
+      "title": "Botão de menu",
+      "intro": "O botão ao lado do campo de mensagem em chats privados: abre a lista de comandos ou seu Web App (Mini App).",
+      "chatId": "ID do chat privado (opcional)",
+      "chatIdPlaceholder": "Vazio = padrão para todos os chats",
+      "typeDefault": "Padrão",
+      "typeCommands": "Comandos",
+      "typeWebApp": "Web App",
+      "text": "Texto do botão",
+      "url": "URL do Web App",
+      "submit": "Salvar botão de menu"
+    },
+    "rights": {
+      "title": "Permissões de administrador padrão",
+      "intro": "Permissões sugeridas aos usuários quando adicionam o bot como administrador. Eles ainda podem alterá-las antes de confirmar.",
+      "groups": "Grupos e supergrupos",
+      "channels": "Canais",
+      "submit": "Salvar permissões",
+      "clear": "Redefinir"
+    },
+    "dev": {
+      "title": "Ferramentas de desenvolvedor",
+      "raw": "Respostas brutas da API",
+      "rawIntro": "Último resultado de cada método get* chamado nesta sessão.",
+      "log": "Registro de requisições",
+      "clearLog": "Limpar",
+      "logIntro": "Últimas 100 requisições. O token do bot nunca é exibido; tokens secretos são ocultados."
+    }
+  },
+  "home": {
+    "eyebrow": "Grátis · Código aberto · Bot API 10.3",
+    "h1": "Telegram Bot Manager: webhooks, comandos e perfil do bot online",
+    "lead": "Configure, verifique e exclua o webhook do seu bot, edite comandos, nome, descrição, avatar, botão de menu e permissões de administrador — sem escrever código nem rodar scripts.",
+    "point1": "Funciona no navegador — sem instalação, sem backend",
+    "point2": "Compatível com a Telegram Bot API 10.3 mais recente",
+    "point3": "Mostra erros do webhook com dicas de como corrigi-los",
+    "featuresTitle": "Tudo o que o BotFather não faz, em um só lugar",
+    "features": [
+      {
+        "icon": "🌐",
+        "title": "Gerenciador de webhook",
+        "text": "setWebhook com token secreto, allowed_updates, max_connections, IP fixo e certificado autoassinado. Exclua o webhook ou descarte atualizações pendentes com segurança."
+      },
+      {
+        "icon": "🩺",
+        "title": "Verificador getWebhookInfo",
+        "text": "Atualizações pendentes, último erro de entrega e erros de sincronização no seu fuso horário — com dicas para SSL, DNS, timeouts e erros HTTP."
+      },
+      {
+        "icon": "📜",
+        "title": "Editor de comandos",
+        "text": "Edite setMyCommands como texto simples com validação, por escopo (chats privados, grupos, admins, um chat) e por idioma."
+      },
+      {
+        "icon": "📝",
+        "title": "Perfil e avatar",
+        "text": "Nome, descrição curta e descrição do bot em qualquer idioma. Envie ou remova uma foto ou avatar em vídeo."
+      },
+      {
+        "icon": "📱",
+        "title": "Botão de menu",
+        "text": "Alterne o botão de menu entre os comandos e seu Mini App (Web App), para todos os chats ou para um só."
+      },
+      {
+        "icon": "🛡",
+        "title": "Permissões de admin",
+        "text": "Permissões de administrador padrão para grupos e canais, incluindo as mais novas da Bot API 10.3."
+      },
+      {
+        "icon": "🧰",
+        "title": "Ferramentas de dev",
+        "text": "Respostas JSON brutas, registro de requisições e um comando curl pronto para copiar em cada ação."
+      },
+      {
+        "icon": "🌍",
+        "title": "5 idiomas, modo escuro",
+        "text": "English, Русский, Español, Português e 简体中文. Temas claro e escuro, funciona no celular."
+      }
+    ],
+    "howTitle": "Como funciona",
+    "steps": [
+      {
+        "title": "Cole o token do bot",
+        "text": "Copie o token do @BotFather e clique em Conectar."
+      },
+      {
+        "title": "Verifique o status",
+        "text": "Webhook, atualizações pendentes, erros e recursos do bot em uma só tela."
+      },
+      {
+        "title": "Altere as configurações",
+        "text": "Edite e salve — cada ação chama diretamente o método oficial da Bot API."
+      }
+    ],
+    "securityTitle": "Seu token fica com você",
+    "security": [
+      "Página estática hospedada no GitHub Pages: não há servidor que possa armazenar ou registrar seu token.",
+      "As requisições vão do seu navegador direto para <code>api.telegram.org</code> (ou para o servidor de API que você escolher).",
+      "O token fica apenas nesta aba do navegador, a menos que você marque “Lembrar neste dispositivo”. “Desconectar” o remove.",
+      "Content Security Policy rígida, sem analytics nem scripts de terceiros. O <a href=\"https://github.com/f1devbin/telegram-bot-manager\" target=\"_blank\" rel=\"noopener\">código-fonte</a> é aberto — confira ou hospede sua própria cópia."
+    ],
+    "guidesTitle": "Guias",
+    "faqTitle": "Perguntas frequentes",
+    "faq": [
+      {
+        "q": "É seguro inserir o token do meu bot aqui?",
+        "a": "A página é totalmente estática e não tem backend. O token é usado só no seu navegador para chamar a Telegram Bot API e não é enviado para nenhum outro lugar. Você pode auditar o código aberto ou rodar sua própria cópia. Se achar que o token vazou, revogue-o no @BotFather → /revoke."
+      },
+      {
+        "q": "Como verifico o webhook do meu bot do Telegram?",
+        "a": "Conecte o bot e abra a aba Webhook. Ela chama getWebhookInfo e mostra a URL, o número de atualizações pendentes e o último erro de entrega com o horário e uma dica para corrigi-lo."
+      },
+      {
+        "q": "Como excluo o webhook e passo a usar getUpdates?",
+        "a": "Abra Webhook → Zona de perigo → Excluir webhook. Se quiser, descarte as atualizações pendentes. Depois disso o bot pode receber atualizações com getUpdates (long polling) — caso contrário o Telegram responde “409 Conflict: can't use getUpdates method while webhook is active”."
+      },
+      {
+        "q": "Por que há atualizações pendentes e o bot não responde?",
+        "a": "O Telegram não consegue entregar as atualizações ao seu webhook. Veja o último erro: problemas de SSL, erros de DNS, timeouts ou HTTP 4xx/5xx do seu servidor. Corrija o servidor e, se quiser, descarte a fila."
+      },
+      {
+        "q": "O que é allowed_updates?",
+        "a": "A lista de tipos de atualização que o bot recebe. Por padrão chega tudo, exceto chat_member, message_reaction e message_reaction_count. Para recebê-los, escolha os tipos explicitamente."
+      },
+      {
+        "q": "Posso definir comandos diferentes para grupos ou outros idiomas?",
+        "a": "Sim. Na aba Comandos escolha um escopo (todos os chats privados, todos os grupos, administradores, um chat ou membro específico) e um idioma. O Telegram mostra a cada usuário a lista mais específica."
+      },
+      {
+        "q": "Aparece “Erro de rede” ao conectar. E agora?",
+        "a": "Sua rede, uma extensão do navegador ou seu país pode bloquear api.telegram.org. Abra “Avançado: servidor da API” e use seu próprio proxy (há um modelo gratuito para Cloudflare Workers no repositório) ou um servidor Bot API local."
+      },
+      {
+        "q": "É grátis? Posso hospedar eu mesmo?",
+        "a": "Sim, é grátis e tem licença MIT. Faça um fork do repositório e ative o GitHub Pages, ou rode <code>npm run build</code> e envie a pasta <code>dist</code> para qualquer hospedagem estática."
+      }
+    ]
+  },
+  "guides": {
+    "setWebhook": {
+      "short": "Configurar um webhook",
+      "title": "Como configurar o webhook de um bot do Telegram online (setWebhook)",
+      "description": "Configure o webhook de um bot do Telegram em poucos cliques: URL HTTPS, token secreto, allowed_updates, max_connections e certificado autoassinado. Com exemplos curl.",
+      "h1": "Como configurar o webhook de um bot do Telegram",
+      "lead": "Com um webhook, o Telegram envia cada atualização para o seu endpoint HTTPS em vez de você consultar getUpdates. Veja como configurá-lo corretamente e com segurança.",
+      "cta": "Abrir o gerenciador de webhook",
+      "body": "<h2>Requisitos</h2><ul><li>Uma URL <strong>HTTPS</strong> pública. HTTP simples não é aceito.</li><li>Porta <strong>443, 80, 88 ou 8443</strong>.</li><li>Um certificado TLS válido (TLS 1.2+). Um autoassinado só funciona se você enviar a chave pública.</li><li>Seu endpoint deve responder rápido com HTTP 2xx; caso contrário o Telegram tenta de novo e as atualizações se acumulam.</li></ul><h2>Configurar o webhook online</h2><ol><li>Abra o Telegram Bot Manager e cole o token do bot do @BotFather.</li><li>Na aba <strong>Webhook</strong> informe a URL do seu handler.</li><li>Clique em <strong>Gerar</strong> para criar um token secreto e salve-o na configuração do servidor.</li><li>Escolha <code>allowed_updates</code> se precisar só de alguns tipos (ou de <code>chat_member</code> / reações, desativados por padrão).</li><li>Clique em <strong>Configurar webhook</strong>. O bloco de status mostra o resultado na hora.</li></ol><h2>Parâmetros</h2><table><thead><tr><th>Parâmetro</th><th>O que faz</th></tr></thead><tbody><tr><td><code>url</code></td><td>Endpoint HTTPS que recebe as atualizações como requisições POST em JSON.</td></tr><tr><td><code>secret_token</code></td><td>1–256 caracteres <code>A-Z a-z 0-9 _ -</code>, enviado no cabeçalho <code>X-Telegram-Bot-Api-Secret-Token</code> de cada requisição.</td></tr><tr><td><code>allowed_updates</code></td><td>Tipos de atualização a receber. Lista vazia = tudo exceto chat_member, message_reaction, message_reaction_count.</td></tr><tr><td><code>max_connections</code></td><td>Conexões HTTPS simultâneas, 1–100 (padrão 40).</td></tr><tr><td><code>ip_address</code></td><td>IP fixo em vez da resolução DNS.</td></tr><tr><td><code>certificate</code></td><td>Chave pública de um certificado autoassinado.</td></tr><tr><td><code>drop_pending_updates</code></td><td>Descarta as atualizações que aguardam na fila.</td></tr></tbody></table><h2>O mesmo com curl</h2>[[curl:setWebhook]]<p>Com certificado autoassinado:</p>[[curl:setWebhookCert]]<h2>Verifique o token secreto no servidor</h2><p>Sempre compare o cabeçalho com o seu segredo e rejeite as outras requisições — a URL do webhook sozinha não é um segredo.</p>[[curl:verifySecret]]<h2>Erros comuns</h2><ul><li><code>Bad Request: bad webhook: An HTTPS URL must be provided for webhook</code> — use https://.</li><li><code>Bad Request: bad webhook: Webhook can be set up only on ports 80, 88, 443 or 8443</code> — troque a porta ou coloque um proxy reverso na frente.</li><li><code>Bad Request: bad webhook: Failed to resolve host</code> — o domínio não tem registro DNS público.</li><li><code>Bad Request: secret token contains unallowed characters</code> — use apenas letras, dígitos, <code>_</code> e <code>-</code>.</li></ul>"
+    },
+    "webhookInfo": {
+      "short": "Verificar um webhook (getWebhookInfo)",
+      "title": "Verificador getWebhookInfo do Telegram — depure o webhook do seu bot",
+      "description": "Verifique online o webhook do seu bot do Telegram: URL, atualizações pendentes, último erro e o que ele significa. Corrija erros de SSL, DNS, timeout e 4xx/5xx.",
+      "h1": "Verificar um webhook do Telegram com getWebhookInfo",
+      "lead": "getWebhookInfo mostra se o Telegram consegue entregar atualizações ao seu bot. Veja como ler cada campo e corrigir os erros de entrega mais comuns.",
+      "cta": "Verificar meu webhook",
+      "body": "<h2>Campos de WebhookInfo</h2><table><thead><tr><th>Campo</th><th>Significado</th></tr></thead><tbody><tr><td><code>url</code></td><td>URL atual do webhook. Vazia significa que o bot usa getUpdates (long polling).</td></tr><tr><td><code>pending_update_count</code></td><td>Atualizações aguardando entrega. Um número crescente indica que o servidor não as aceita.</td></tr><tr><td><code>last_error_date</code>, <code>last_error_message</code></td><td>Horário (Unix) e texto do último erro de entrega.</td></tr><tr><td><code>last_synchronization_error_date</code></td><td>Erro ao sincronizar atualizações entre os data centers do Telegram; geralmente temporário.</td></tr><tr><td><code>ip_address</code></td><td>IP para o qual o Telegram envia as requisições agora.</td></tr><tr><td><code>max_connections</code></td><td>Máximo de conexões simultâneas.</td></tr><tr><td><code>allowed_updates</code></td><td>Tipos assinados; se ausente, vale o conjunto padrão.</td></tr><tr><td><code>has_custom_certificate</code></td><td>Se um certificado autoassinado foi enviado.</td></tr></tbody></table><h2>Verificar com curl</h2>[[curl:getWebhookInfo]]<p>Exemplo de resposta:</p>[[curl:webhookInfoResponse]]<h2>Valores típicos de last_error_message</h2><ul><li><code>SSL error {error:...:certificate verify failed}</code> — cadeia de certificados incompleta, certificado expirado ou autoassinado. Instale a cadeia completa (fullchain.pem) ou envie a chave pública do autoassinado.</li><li><code>Connection timed out</code> / <code>Read timeout expired</code> — o servidor está inacessível ou responde devagar demais. Responda 200 imediatamente e processe a atualização em segundo plano.</li><li><code>Connection refused</code> — nada escuta nessa porta ou um firewall bloqueia os IPs do Telegram.</li><li><code>Failed to resolve host: Name or service not known</code> — problema de DNS no seu domínio.</li><li><code>Wrong response from the webhook: 404 Not Found</code> — caminho errado na URL ou no roteamento.</li><li><code>Wrong response from the webhook: 401 Unauthorized</code> / <code>403 Forbidden</code> — seu servidor rejeita a requisição, muitas vezes por token secreto divergente.</li><li><code>Wrong response from the webhook: 500/502/503</code> — seu handler falha ou o upstream atrás do proxy está fora do ar. Confira os logs do servidor.</li></ul><h2>Depois de corrigir</h2><p>Atualize o status: <code>last_error_date</code> permanece até o próximo erro, então compare o horário com o atual. Se a fila tiver atualizações antigas, descarte-as com <code>drop_pending_updates</code>.</p>"
+    },
+    "deleteWebhook": {
+      "short": "Excluir um webhook",
+      "title": "Como excluir o webhook de um bot do Telegram e usar getUpdates",
+      "description": "Exclua online o webhook do seu bot do Telegram (deleteWebhook), descarte atualizações pendentes e resolva o erro “409 Conflict” do getUpdates.",
+      "h1": "Como excluir o webhook de um bot do Telegram",
+      "lead": "Exclua o webhook para voltar ao long polling (getUpdates), mover o bot para outro servidor ou impedir que um endpoint quebrado acumule atualizações.",
+      "cta": "Abrir o gerenciador de webhook",
+      "body": "<h2>Quando você precisa disso</h2><ul><li>Você roda o bot localmente com uma biblioteca que usa getUpdates e vê <code>409 Conflict: can't use getUpdates method while webhook is active; use deleteWebhook to delete the webhook first</code>.</li><li>Você está movendo o bot para outro servidor ou domínio.</li><li>O endpoint antigo não existe mais e o Telegram continua tentando.</li></ul><h2>Excluir o webhook online</h2><ol><li>Conecte o bot com o token.</li><li>Abra <strong>Webhook → Zona de perigo</strong>.</li><li>Marque <strong>Descartar atualizações pendentes</strong> se não precisar da fila.</li><li>Clique em <strong>Excluir webhook</strong> e confirme.</li></ol><h2>O mesmo com curl</h2>[[curl:deleteWebhook]]<p>Depois receba atualizações com long polling:</p>[[curl:getUpdates]]<h2>Apenas limpar a fila</h2><p>Para descartar atualizações presas mantendo o webhook, use <strong>Descartar atualizações pendentes</strong>: ele chama setWebhook de novo com a mesma URL e <code>drop_pending_updates=true</code>. Digite seu token secreto para mantê-lo.</p><h2>Observações</h2><ul><li><code>deleteWebhook</code> não afeta comandos, perfil nem outras configurações.</li><li>Sem <code>drop_pending_updates</code>, as atualizações da fila (guardadas por até 24 horas) chegam nas próximas chamadas a getUpdates.</li></ul>"
+    },
+    "botCommands": {
+      "short": "Editor de comandos",
+      "title": "Editor de comandos de bots do Telegram — setMyCommands online",
+      "description": "Edite online os comandos do seu bot do Telegram: setMyCommands por escopo e idioma, deleteMyCommands, limites e formato. Grátis e sem código.",
+      "h1": "Editar comandos de um bot do Telegram online",
+      "lead": "Os comandos do bot aparecem no menu e nas sugestões ao digitar “/”. Você pode definir listas diferentes para chats privados, grupos, administradores e idiomas.",
+      "cta": "Abrir o editor de comandos",
+      "body": "<h2>Formato</h2><p>Um comando por linha, nome e descrição separados por hífen:</p>[[curl:commandsText]]<ul><li>Até <strong>100</strong> comandos por lista.</li><li>Nome: 1–32 caracteres, letras inglesas minúsculas, dígitos e sublinhados. A “/” inicial é removida automaticamente.</li><li>Descrição: 1–256 caracteres.</li><li><code>[ephemeral]</code> marca comandos cuja resposta só quem enviou vê (Bot API 10.2).</li></ul><h2>Escopos (scopes)</h2><table><thead><tr><th>Scope</th><th>Quem vê a lista</th></tr></thead><tbody><tr><td><code>default</code></td><td>Todos, se nenhum escopo mais específico se aplicar.</td></tr><tr><td><code>all_private_chats</code></td><td>Todos os chats privados.</td></tr><tr><td><code>all_group_chats</code></td><td>Todos os grupos e supergrupos.</td></tr><tr><td><code>all_chat_administrators</code></td><td>Administradores de todos os grupos.</td></tr><tr><td><code>chat</code></td><td>Um chat específico (chat_id).</td></tr><tr><td><code>chat_administrators</code></td><td>Administradores de um chat.</td></tr><tr><td><code>chat_member</code></td><td>Um membro de um chat (chat_id + user_id).</td></tr></tbody></table><p>Cada escopo também pode ter listas por <code>language_code</code> (ISO 639-1 de duas letras). O Telegram escolhe o escopo mais específico, depois o idioma do usuário e depois a lista sem idioma.</p><h2>O mesmo com curl</h2>[[curl:setMyCommands]]<p>Excluir uma lista:</p>[[curl:deleteMyCommands]]<h2>Dicas</h2><ul><li>Use descrições curtas — elas são cortadas em menus estreitos.</li><li>Os usuários veem as mudanças ao reabrir o chat; os clientes guardam a lista em cache.</li><li>Na aba Botão de menu você pode mostrar a lista de comandos ou um Mini App no botão ao lado do campo de texto.</li></ul>"
+    }
+  },
+  "app": {
+    "common": {
+      "copied": "Copiado para a área de transferência",
+      "copyFailed": "Não foi possível copiar — selecione o texto manualmente",
+      "copy": "Copiar",
+      "yes": "Sim",
+      "no": "Não",
+      "show": "Mostrar",
+      "hide": "Ocultar",
+      "allLanguages": "Todos os idiomas (padrão)",
+      "selectAll": "Selecionar tudo",
+      "selectNone": "Limpar tudo",
+      "curlHint": "Defina as variáveis antes: export BOT_TOKEN=… (e WEBHOOK_SECRET=…, se usar)."
+    },
+    "time": {
+      "seconds": "{n} s",
+      "minutes": "{n} min",
+      "hours": "{n} h"
+    },
+    "errors": {
+      "network": "Erro de rede: api.telegram.org está inacessível neste navegador. Verifique a conexão e extensões (bloqueadores de anúncios) ou configure um proxy em “Avançado: servidor da API”.",
+      "timeout": "O servidor da Bot API não respondeu a tempo. Tente novamente.",
+      "unauthorized": "O Telegram rejeitou o token. Verifique-o no @BotFather (ele pode ter sido revogado).",
+      "flood": "Requisições demais: o Telegram pede para esperar {time} antes de tentar de novo.",
+      "telegram": "Erro do Telegram: {description}"
+    },
+    "validation": {
+      "token_format": "Isso não parece um token de bot. Formato esperado: 123456789:AAH…",
+      "url_invalid": "Informe uma URL válida.",
+      "url_https": "A URL deve começar com https://",
+      "url_port": "Apenas as portas 443, 80, 88 e 8443 são suportadas.",
+      "secret_format": "1–256 caracteres: apenas A–Z, a–z, 0–9, _ e -.",
+      "ip_format": "Informe um endereço IPv4 ou IPv6 válido.",
+      "max_connections": "Informe um número inteiro de 1 a 100.",
+      "language_code": "Use um código de duas letras minúsculas, ex.: pt.",
+      "chat_id": "Informe um ID numérico do chat ou @username.",
+      "user_id": "Informe um ID numérico do usuário.",
+      "too_long": "Muito longo: máximo de {max} caracteres.",
+      "required": "Campo obrigatório.",
+      "file_required": "Escolha um arquivo.",
+      "updates_empty": "Selecione ao menos um tipo de atualização ou mude para Padrão.",
+      "cmd_format": "esperado “comando - descrição”",
+      "cmd_name": "comando inválido “{value}”: apenas a–z, 0–9 e _, até {max} caracteres",
+      "cmd_description": "a descrição de “{value}” deve ter de 1 a 256 caracteres",
+      "cmd_duplicate": "comando duplicado “{value}”",
+      "cmd_limit": "Comandos demais: o máximo é 100."
+    },
+    "me": {
+      "can_join_groups": "Pode ser adicionado a grupos",
+      "can_read_all_group_messages": "Lê todas as mensagens de grupos (modo privacidade desativado)",
+      "supports_inline_queries": "Modo inline",
+      "can_connect_to_business": "Telegram Business",
+      "has_main_web_app": "Mini App principal",
+      "has_topics_enabled": "Tópicos em chats privados",
+      "allows_users_to_create_topics": "Usuários criam tópicos",
+      "supports_guest_queries": "Modo convidado",
+      "supports_join_request_queries": "Consultas de pedidos de entrada",
+      "can_manage_bots": "Pode gerenciar outros bots"
+    },
+    "webhook": {
+      "statusPolling": "Não configurado",
+      "statusError": "Erros",
+      "statusActive": "Ativo",
+      "notSet": "O webhook não está configurado — o bot recebe atualizações via getUpdates (long polling).",
+      "none": "—",
+      "updatesDefaultShort": "Padrão (tudo exceto chat_member e reações)",
+      "statUrl": "URL",
+      "statPending": "Pendentes",
+      "statMax": "Conexões máx.",
+      "statIp": "Endereço IP",
+      "statCert": "Certificado próprio",
+      "statUpdates": "allowed_updates",
+      "lastError": "Último erro de entrega:",
+      "syncError": "Último erro de sincronização:",
+      "syncErrorHint": "O Telegram não conseguiu sincronizar as atualizações entre data centers. Geralmente é temporário e não é causado pelo seu servidor.",
+      "optIn": "explícito",
+      "secretGenerated": "Segredo gerado. Salve-o na configuração do servidor antes de configurar o webhook.",
+      "saved": "Webhook salvo.",
+      "noWebhook": "O webhook não está configurado.",
+      "dropConfirm": "Descartar {count} atualização(ões) pendente(s)? Elas serão perdidas.",
+      "dropped": "Atualizações pendentes descartadas.",
+      "deleteConfirm": "Excluir o webhook? O bot deixará de receber atualizações nesta URL.",
+      "deleted": "Webhook excluído. Agora o bot pode usar getUpdates.",
+      "hints": {
+        "ssl": "Problema de certificado: instale a cadeia completa (fullchain.pem), renove um certificado expirado ou envie a chave pública de um autoassinado.",
+        "dns": "O Telegram não consegue resolver seu domínio. Verifique os registros DNS A/AAAA ou defina um IP fixo.",
+        "refused": "Nada aceita conexões nesse host e porta, ou um firewall bloqueia o Telegram. Verifique o servidor e a porta.",
+        "timeout": "Seu servidor está inacessível ou lento demais. Responda 200 imediatamente e processe as atualizações de forma assíncrona.",
+        "http3xx": "Seu endpoint redireciona. O Telegram não segue redirecionamentos — use a URL final.",
+        "http4xx": "Seu servidor rejeita a requisição: verifique o caminho da URL, a autenticação e a checagem do token secreto.",
+        "http5xx": "Seu handler falha. Confira os logs do servidor e o upstream atrás do proxy reverso."
+      }
+    },
+    "updateGroups": {
+      "messages": "Mensagens",
+      "interactions": "Botões, inline e reações",
+      "members": "Membros e chats",
+      "payments": "Pagamentos",
+      "business": "Telegram Business",
+      "other": "Enquetes e outros"
+    },
+    "updates": {
+      "message": "Novas mensagens",
+      "edited_message": "Mensagens editadas",
+      "channel_post": "Posts de canal",
+      "edited_channel_post": "Posts de canal editados",
+      "guest_message": "Mensagens de convidados de chats sem o bot",
+      "callback_query": "Cliques em botões inline",
+      "inline_query": "Consultas inline",
+      "chosen_inline_result": "Resultados inline escolhidos",
+      "message_reaction": "Reações de usuários",
+      "message_reaction_count": "Contagens de reações anônimas",
+      "stopped_message_generation": "Usuário interrompeu a geração",
+      "my_chat_member": "Bot adicionado, removido ou bloqueado",
+      "chat_member": "Mudanças de status de membros",
+      "chat_join_request": "Pedidos de entrada",
+      "chat_boost": "Boosts do chat",
+      "removed_chat_boost": "Boosts removidos",
+      "shipping_query": "Consultas de envio",
+      "pre_checkout_query": "Consultas de pré-checkout",
+      "purchased_paid_media": "Compras de mídia paga",
+      "subscription": "Mudanças de assinatura",
+      "business_connection": "Conexões Business",
+      "business_message": "Mensagens Business",
+      "edited_business_message": "Mensagens Business editadas",
+      "deleted_business_messages": "Mensagens Business excluídas",
+      "poll": "Estado de enquetes",
+      "poll_answer": "Respostas de enquetes",
+      "managed_bot": "Mudanças de bots gerenciados"
+    },
+    "profile": {
+      "noChanges": "Nada foi alterado.",
+      "saved": "Perfil salvo.",
+      "fields": {
+        "name": "Nome",
+        "short": "Descrição curta",
+        "description": "Descrição"
+      }
+    },
+    "photo": {
+      "saved": "Foto de perfil atualizada.",
+      "removeConfirm": "Remover a foto de perfil do bot?",
+      "removed": "Foto de perfil removida."
+    },
+    "commands": {
+      "line": "Linha {n}",
+      "saved": "{n} comando(s) salvo(s).",
+      "deleteConfirm": "Excluir a lista de comandos para este escopo e idioma?",
+      "deleted": "Comandos excluídos."
+    },
+    "scopes": {
+      "default": {
+        "label": "Padrão",
+        "hint": "Usado quando nenhum escopo mais específico se aplica ao usuário."
+      },
+      "all_private_chats": {
+        "label": "Todos os chats privados",
+        "hint": "Todos os chats privados com o bot."
+      },
+      "all_group_chats": {
+        "label": "Todos os grupos",
+        "hint": "Todos os grupos e supergrupos."
+      },
+      "all_chat_administrators": {
+        "label": "Admins de todos os grupos",
+        "hint": "Administradores de todos os grupos e supergrupos."
+      },
+      "chat": {
+        "label": "Chat específico",
+        "hint": "Um chat por ID ou @username (canais não são suportados)."
+      },
+      "chat_administrators": {
+        "label": "Admins de um chat",
+        "hint": "Administradores de um chat específico."
+      },
+      "chat_member": {
+        "label": "Membro de um chat",
+        "hint": "Um usuário em um chat específico."
+      }
+    },
+    "menu": {
+      "saved": "Botão de menu salvo."
+    },
+    "rights": {
+      "is_anonymous": "Permanecer anônimo",
+      "can_manage_chat": "Gerenciar chat (registros, estatísticas)",
+      "can_delete_messages": "Excluir mensagens",
+      "can_manage_video_chats": "Gerenciar videochamadas",
+      "can_restrict_members": "Banir e restringir membros",
+      "can_promote_members": "Adicionar administradores",
+      "can_change_info": "Alterar informações do chat",
+      "can_invite_users": "Convidar por link",
+      "can_post_stories": "Publicar stories",
+      "can_edit_stories": "Editar stories de outros",
+      "can_delete_stories": "Excluir stories de outros",
+      "can_send_welcome_messages": "Gerenciar mensagens de boas-vindas",
+      "can_post_messages": "Publicar mensagens",
+      "can_edit_messages": "Editar mensagens de outros",
+      "can_manage_direct_messages": "Gerenciar mensagens diretas",
+      "can_pin_messages": "Fixar mensagens",
+      "can_manage_topics": "Gerenciar tópicos",
+      "can_manage_tags": "Editar tags de membros",
+      "saved": "Permissões padrão salvas.",
+      "clearConfirm": "Redefinir as permissões de administrador padrão?",
+      "cleared": "Permissões padrão redefinidas."
+    },
+    "dev": {
+      "empty": "Nada ainda.",
+      "request": "Requisição",
+      "response": "Resposta"
+    }
+  }
+}

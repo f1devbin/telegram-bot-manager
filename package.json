@@ -1,0 +1,23 @@
+{
+  "name": "telegram-bot-manager",
+  "version": "3.0.0",
+  "private": true,
+  "description": "Free online Telegram Bot Manager: set, check and delete webhooks, edit commands, profile, menu button and admin rights right in your browser.",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test \"tests/*.test.mjs\"",
+    "serve": "node scripts/serve.mjs",
+    "start": "node scripts/build.mjs && node scripts/serve.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/f1devbin/telegram-bot-manager.git"
+  },
+  "homepage": "https://f1devbin.github.io/telegram-bot-manager/",
+  "keywords": ["telegram", "telegram-bot", "webhook", "bot-api", "getwebhookinfo", "setwebhook", "botfather"],
+  "license": "MIT"
+}

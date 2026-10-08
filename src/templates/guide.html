@@ -1,0 +1,24 @@
+<article class="container article">
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="{{langRoot}}">Telegram Bot Manager</a></li>
+      <li aria-current="page">{{guide.short}}</li>
+    </ol>
+  </nav>
+  <h1>{{guide.h1}}</h1>
+  <p class="lead">{{guide.lead}}</p>
+  <div class="card cta">
+    <p>{{t.ui.cta.text}}</p>
+    <a class="btn btn-primary" href="{{langRoot}}#{{guide.tab}}">{{guide.cta}}</a>
+  </div>
+  {{{guide.body}}}
+  <div class="card cta">
+    <p>{{t.ui.cta.text}}</p>
+    <a class="btn btn-primary" href="{{langRoot}}#{{guide.tab}}">{{guide.cta}}</a>
+  </div>
+  <section class="related">
+    <h2>{{t.ui.related}}</h2>
+    <div class="guide-grid">{{{guide.related}}}</div>
+  </section>
+</article>
+<script type="application/json" id="i18n-data">{{{page.i18nJson}}}</script>
