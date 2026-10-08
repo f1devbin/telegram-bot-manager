@@ -3,6 +3,9 @@
 ## 3.0.1 — 2026-10-08
 
 ### Fixed
+- Accessibility: text/background contrast meets WCAG AA in both themes; links inside text are underlined.
+- Theme script is inlined (CSP hash) to remove a render-blocking request.
+- Command scope and language selects are no longer truncated.
 - Bot avatar was not shown: api.telegram.org serves files without CORS headers, so the avatar is now loaded as a regular image (via a proxy it is still downloaded as a blob).
 
 ## 3.0.0 — 2026-10-08

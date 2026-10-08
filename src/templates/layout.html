@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob: https: http://localhost:* http://127.0.0.1:*; connect-src https: http://localhost:* http://127.0.0.1:*; font-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' '{{site.themeHash}}'; style-src 'self'; img-src 'self' data: blob: https: http://localhost:* http://127.0.0.1:*; connect-src https: http://localhost:* http://127.0.0.1:*; font-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>{{page.title}}</title>
 <meta name="description" content="{{page.description}}">
@@ -32,7 +32,7 @@
 <link rel="apple-touch-icon" href="{{root}}assets/img/apple-touch-icon.png">
 <link rel="manifest" href="{{root}}site.webmanifest">
 <link rel="stylesheet" href="{{root}}assets/css/app.css?v={{site.version}}">
-<script src="{{root}}assets/js/theme.js?v={{site.version}}"></script>
+<script>{{{site.themeScript}}}</script>
 {{{page.jsonLd}}}
 </head>
 <body class="page-{{page.id}}">

@@ -1,19 +1,21 @@
 /* Telegram Bot Manager — styles. Light/dark via tokens; data-theme overrides the system preference. */
 :root {
-  --accent: #2481cc;
-  --accent-hover: #1c6fb0;
+  --accent: #1d6aad;
+  --accent-hover: #17598f;
+  --on-accent: #ffffff;
+  --on-danger: #ffffff;
   --accent-soft: #e3f0fb;
   --bg: #f4f6f9;
   --surface: #ffffff;
   --surface-2: #f0f3f7;
   --border: #dde3ea;
   --text: #17212b;
-  --muted: #5f6f80;
-  --success: #2e9e4f;
+  --muted: #546375;
+  --success: #1f7a3c;
   --success-soft: #e4f5e9;
-  --danger: #d64541;
+  --danger: #b8352f;
   --danger-soft: #fdeceb;
-  --warn: #b7791f;
+  --warn: #8a5a0e;
   --warn-soft: #fdf4e3;
   --code-bg: #f6f8fa;
   --shadow: 0 1px 2px rgba(16, 24, 40, .06), 0 4px 16px rgba(16, 24, 40, .06);
@@ -27,6 +29,8 @@
   :root:not([data-theme="light"]) {
     --accent: #5aa7f0;
     --accent-hover: #7bb9f4;
+    --on-accent: #0e1621;
+    --on-danger: #0e1621;
     --accent-soft: #1d3247;
     --bg: #0e1621;
     --surface: #17212b;
@@ -49,6 +53,8 @@
 :root[data-theme="dark"] {
   --accent: #5aa7f0;
   --accent-hover: #7bb9f4;
+  --on-accent: #0e1621;
+  --on-danger: #0e1621;
   --accent-soft: #1d3247;
   --bg: #0e1621;
   --surface: #17212b;
@@ -85,6 +91,9 @@ main { flex: 1; }
 
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
+/* Links inside text must not rely on color alone. */
+p a, li a, td a, .hint a, .alert a { text-decoration: underline; text-underline-offset: 2px; }
+.footer-links a, .dropdown-menu a, .guide-card, a.btn, .breadcrumbs a { text-decoration: none; }
 
 h1, h2, h3 { line-height: 1.25; margin: 0 0 .6em; }
 h1 { font-size: clamp(1.9rem, 4vw, 2.75rem); letter-spacing: -.02em; }
@@ -107,7 +116,7 @@ img, svg { max-width: 100%; }
   clip: rect(0 0 0 0); white-space: nowrap; border: 0; padding: 0; margin: -1px;
 }
 
-.skip-link { position: absolute; left: 8px; top: -48px; background: var(--accent); color: #fff; padding: 8px 12px; border-radius: var(--radius-sm); z-index: 100; }
+.skip-link { position: absolute; left: 8px; top: -48px; background: var(--accent); color: var(--on-accent); padding: 8px 12px; border-radius: var(--radius-sm); z-index: 100; }
 .skip-link:focus { top: 8px; }
 
 .muted { color: var(--muted); }
@@ -164,13 +173,13 @@ img, svg { max-width: 100%; }
 }
 .btn:hover { text-decoration: none; }
 .btn:disabled { opacity: .6; cursor: progress; }
-.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary { background: var(--accent); color: var(--on-accent); }
 .btn-primary:hover { background: var(--accent-hover); }
 .btn-secondary { background: var(--surface-2); color: var(--text); border-color: var(--border); }
 .btn-secondary:hover { border-color: var(--accent); }
 .btn-ghost { background: transparent; color: var(--accent); border-color: var(--border); }
 .btn-ghost:hover { background: var(--accent-soft); }
-.btn-danger { background: var(--danger); color: #fff; }
+.btn-danger { background: var(--danger); color: var(--on-danger); }
 .btn-danger:hover { filter: brightness(1.08); }
 .btn-block { width: 100%; }
 .btn-sm { min-height: 30px; padding: 4px 10px; font-size: .82rem; }
@@ -180,7 +189,7 @@ img, svg { max-width: 100%; }
   border: 2px solid currentColor; border-color: var(--muted) transparent var(--muted) transparent;
   animation: spin .8s linear infinite;
 }
-.btn-primary.is-busy::after, .btn-danger.is-busy::after { border-color: #fff transparent #fff transparent; }
+.btn-primary.is-busy::after, .btn-danger.is-busy::after { border-color: var(--on-accent) transparent var(--on-accent) transparent; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
 .link-btn { background: none; border: 0; padding: 0 2px; color: var(--accent); cursor: pointer; font: inherit; font-size: .85rem; }
@@ -325,7 +334,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--accent); width
 .tabs { display: flex; gap: 4px; overflow-x: auto; margin-bottom: 14px; padding: 4px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); scrollbar-width: thin; }
 .tabs [role="tab"] { flex: none; border: 0; background: transparent; color: var(--muted); font: inherit; font-weight: 600; font-size: .92rem; padding: 9px 14px; border-radius: 10px; cursor: pointer; white-space: nowrap; }
 .tabs [role="tab"]:hover { color: var(--text); background: var(--surface-2); }
-.tabs [role="tab"][aria-selected="true"] { color: #fff; background: var(--accent); }
+.tabs [role="tab"][aria-selected="true"] { color: var(--on-accent); background: var(--accent); }
 
 .panel { padding: 24px; }
 @media (max-width: 640px) { .panel, .connect-card { padding: 16px; } }
@@ -387,7 +396,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--accent); width
 .feature-icon { font-size: 1.3rem; }
 .steps { counter-reset: step; list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
 .steps li { counter-increment: step; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 20px 20px 64px; position: relative; }
-.steps li::before { content: counter(step); position: absolute; left: 20px; top: 18px; width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 700; display: grid; place-items: center; }
+.steps li::before { content: counter(step); position: absolute; left: 20px; top: 18px; width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: var(--on-accent); font-weight: 700; display: grid; place-items: center; }
 .steps strong { display: block; margin-bottom: 4px; }
 .steps span { color: var(--muted); font-size: .95rem; }
 .check-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; max-width: 860px; }
@@ -437,3 +446,6 @@ body.is-connected .site-footer { margin-top: 0; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+.scope-grid { display: flex; flex-wrap: wrap; gap: 0 12px; }
+.scope-grid > .field { flex: 1 1 220px; }
