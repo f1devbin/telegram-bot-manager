@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="{{lang.hreflang}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src https: http://localhost:* http://127.0.0.1:*; font-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>{{page.title}}</title>
+<meta name="description" content="{{page.description}}">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="{{page.url}}">
+{{{page.alternates}}}
+<meta property="og:type" content="{{page.ogType}}">
+<meta property="og:site_name" content="Telegram Bot Manager">
+<meta property="og:title" content="{{page.title}}">
+<meta property="og:description" content="{{page.description}}">
+<meta property="og:url" content="{{page.url}}">
+<meta property="og:image" content="{{site.url}}assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{{t.meta.ogImageAlt}}">
+<meta property="og:locale" content="{{lang.ogLocale}}">
+{{{page.ogAlternates}}}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{page.title}}">
+<meta name="twitter:description" content="{{page.description}}">
+<meta name="twitter:image" content="{{site.url}}assets/img/og-image.png">
+<meta name="theme-color" content="#f4f6f9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1621" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="{{root}}assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="{{root}}assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="{{root}}assets/img/apple-touch-icon.png">
+<link rel="manifest" href="{{root}}site.webmanifest">
+<link rel="stylesheet" href="{{root}}assets/css/app.css?v={{site.version}}">
+<script src="{{root}}assets/js/theme.js?v={{site.version}}"></script>
+{{{page.jsonLd}}}
+</head>
+<body class="page-{{page.id}}">
+<a class="skip-link" href="#main">{{t.ui.skip}}</a>
+<header class="site-header">
+  <div class="container header-row">
+    <a class="brand" href="{{langRoot}}" aria-label="Telegram Bot Manager — {{t.ui.home}}">
+      <img src="{{root}}assets/img/favicon.svg" width="32" height="32" alt="">
+      <span>Telegram Bot Manager</span>
+    </a>
+    <nav class="header-nav" aria-label="{{t.ui.mainNav}}">
+      <details class="dropdown">
+        <summary>{{t.ui.guides}}</summary>
+        <ul class="dropdown-menu">{{{page.guideLinks}}}</ul>
+      </details>
+      <details class="dropdown lang-menu">
+        <summary><span class="visually-hidden">{{t.ui.language}}: </span>{{lang.name}}</summary>
+        <ul class="dropdown-menu">{{{page.langLinks}}}</ul>
+      </details>
+      <button type="button" class="icon-btn" id="theme-toggle" aria-label="{{t.ui.toggleTheme}}" title="{{t.ui.toggleTheme}}">
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v3M12 19.5v3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M1.5 12h3M19.5 12h3M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg>
+      </button>
+      <a class="icon-btn" href="{{site.repo}}" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" stroke="none" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+      </a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+{{{content}}}
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <p class="footer-brand">Telegram Bot Manager</p>
+      <p class="muted">{{t.ui.footer.tagline}}</p>
+      <p class="muted small">{{t.ui.footer.disclaimer}}</p>
+    </div>
+    <div>
+      <p class="footer-title">{{t.ui.guides}}</p>
+      <ul class="footer-links">{{{page.guideLinks}}}</ul>
+    </div>
+    <div>
+      <p class="footer-title">{{t.ui.footer.project}}</p>
+      <ul class="footer-links">
+        <li><a href="{{site.repo}}" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="{{site.repo}}/issues" target="_blank" rel="noopener">{{t.ui.footer.issues}}</a></li>
+        <li><a href="{{site.repo}}/blob/main/LICENSE" target="_blank" rel="noopener">{{t.ui.footer.license}}</a></li>
+        <li><a href="https://core.telegram.org/bots/api" target="_blank" rel="noopener">Telegram Bot API</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-bottom muted small">
+    <span>© {{site.year}} <a href="https://github.com/f1devbin" target="_blank" rel="noopener">f1devbin</a> · MIT</span>
+    <span>Bot API {{site.botApiVersion}} · v{{site.appVersion}}</span>
+  </div>
+</footer>
+{{{page.scripts}}}
+</body>
+</html>

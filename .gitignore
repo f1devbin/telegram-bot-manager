@@ -1,10 +1,7 @@
-# Игнорируем файл статистики и счетчик просмотров
-stats_counter.json
+node_modules/
+dist/
 
-# Игнорируем логи Telegram Bot API (если используются)
-debug_in.txt
-debug_out.txt
-
-# Системные файлы платформ
 .DS_Store
 Thumbs.db
+.idea/
+.vscode/

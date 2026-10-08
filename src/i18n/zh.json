@@ -1,0 +1,428 @@
+{
+  "meta": {
+    "title": "Telegram Bot Manager — 在线设置和检查 Telegram 机器人 Webhook",
+    "description": "免费的 Telegram 机器人在线工具：设置、检查（getWebhookInfo）和删除 Webhook，编辑命令、资料、菜单按钮和默认管理员权限，全部在浏览器中完成。",
+    "ogImageAlt": "Telegram Bot Manager — 在线 Webhook 与机器人设置工具"
+  },
+  "ui": {
+    "skip": "跳到主要内容",
+    "home": "首页",
+    "mainNav": "主导航",
+    "guides": "教程",
+    "language": "语言",
+    "toggleTheme": "切换深色模式",
+    "noscript": "Telegram Bot Manager 需要 JavaScript：所有 Telegram Bot API 请求都直接从你的浏览器发出。",
+    "appLabel": "机器人设置",
+    "related": "更多教程",
+    "notFound": "页面不存在。打开机器人管理器或选择语言：",
+    "cta": {
+      "text": "几次点击即可完成——无需写代码、无需服务器，直接在浏览器中操作。"
+    },
+    "footer": {
+      "tagline": "免费开源的网页工具，通过 Bot API 管理 Telegram 机器人：Webhook、命令、资料、菜单按钮和管理员权限。",
+      "disclaimer": "非官方工具，与 Telegram 无关联，亦未获其认可。",
+      "project": "项目",
+      "issues": "反馈问题",
+      "license": "MIT 许可证"
+    },
+    "common": {
+      "show": "显示",
+      "refresh": "刷新",
+      "copy": "复制",
+      "curl": "查看 curl",
+      "language": "语言",
+      "load": "加载",
+      "selectAll": "全选",
+      "selectNone": "全部取消"
+    },
+    "connect": {
+      "title": "连接你的机器人",
+      "token": "机器人 Token",
+      "tokenHint": "在 <a href=\"https://t.me/BotFather\" target=\"_blank\" rel=\"noopener\">@BotFather</a> → /mybots → API Token 中获取。",
+      "remember": "在此设备上记住",
+      "advanced": "高级：API 服务器",
+      "apiBase": "Bot API 服务器 URL",
+      "apiBaseHint": "留空则使用 <code>https://api.telegram.org</code>。如果你的网络屏蔽了 Telegram，可使用自己的<a href=\"https://github.com/f1devbin/telegram-bot-manager#cors-proxy\" target=\"_blank\" rel=\"noopener\">代理</a>或本地 Bot API 服务器。",
+      "submit": "连接",
+      "privacy": "🔒 Token 只保存在你的浏览器中，只会发送到 Bot API 服务器。"
+    },
+    "sidebar": {
+      "webhook": "Webhook",
+      "stars": "Stars 余额",
+      "capabilities": "功能",
+      "botfatherHint": "这些选项需在 <a href=\"https://t.me/BotFather\" target=\"_blank\" rel=\"noopener\">@BotFather</a> → Bot Settings 中修改。",
+      "disconnect": "断开连接"
+    },
+    "tabs": {
+      "webhook": "Webhook",
+      "profile": "资料",
+      "commands": "命令",
+      "menu": "菜单按钮",
+      "rights": "管理员权限",
+      "dev": "开发者"
+    },
+    "webhook": {
+      "title": "Webhook 状态",
+      "setTitle": "设置 Webhook",
+      "url": "Webhook URL",
+      "urlHint": "仅支持 HTTPS。支持的端口：443、80、88、8443。",
+      "secret": "Secret Token",
+      "generate": "生成",
+      "secretHint": "通过 X-Telegram-Bot-Api-Secret-Token 请求头发送。Telegram 不会返回它——请保存在你的服务器上。留空 = 不使用。",
+      "maxConnections": "最大连接数",
+      "maxConnectionsHint": "1–100，默认 40。调低可减轻服务器负载。",
+      "ip": "固定 IP 地址（可选）",
+      "ipHint": "将更新发送到该 IP，而不是通过 DNS 解析域名。",
+      "certificate": "自签名证书（可选）",
+      "certificateHint": "仅当服务器使用自签名证书时，上传其公钥（PEM）。",
+      "allowedUpdates": "allowed_updates",
+      "updatesDefault": "默认",
+      "updatesCustom": "选择类型",
+      "updatesHint": "默认 = 除 <code>chat_member</code>、<code>message_reaction</code> 和 <code>message_reaction_count</code> 之外的所有更新类型；这三种只有显式选择才会推送。",
+      "dropPending": "丢弃待处理更新（drop_pending_updates）",
+      "submit": "设置 Webhook",
+      "dangerTitle": "危险操作",
+      "dropTitle": "丢弃待处理更新",
+      "dropHint": "使用 drop_pending_updates 重新设置当前 Webhook。请再次输入 Secret Token 以保留它，否则它会被移除。固定 IP 和已上传的证书不会保留——这种情况下请使用上面的表单。",
+      "dropSecret": "当前 Secret Token（可选）",
+      "dropSubmit": "丢弃更新",
+      "deleteTitle": "删除 Webhook",
+      "deleteHint": "机器人将不再通过该 URL 接收更新，并可重新使用 getUpdates（长轮询）。",
+      "deleteSubmit": "删除 Webhook"
+    },
+    "profile": {
+      "title": "机器人资料",
+      "intro": "名称和描述可以针对每种用户语言单独设置。“所有语言”是默认值。",
+      "name": "名称",
+      "shortDescription": "简短描述",
+      "shortDescriptionHint": "显示在机器人资料页和链接预览中。",
+      "description": "描述",
+      "descriptionHint": "显示在空聊天中：“这个机器人能做什么？”。",
+      "emptyHint": "对于特定语言，留空会删除该语言的本地化内容。只发送已修改的字段。",
+      "submit": "保存资料"
+    },
+    "photo": {
+      "title": "头像",
+      "intro": "为机器人上传新的照片或视频头像（setMyProfilePhoto）。",
+      "static": "照片",
+      "animated": "视频",
+      "file": "文件",
+      "staticHint": "建议使用正方形 JPEG 或 PNG。",
+      "animatedHint": "正方形、无声、几秒钟的 MPEG4 视频——与普通 Telegram 视频头像相同。",
+      "mainFrame": "封面帧时间点（秒）",
+      "submit": "上传",
+      "remove": "删除头像"
+    },
+    "commands": {
+      "title": "机器人命令",
+      "intro": "命令显示在菜单按钮中，以及用户输入“/”时的提示里。可为每个范围和语言设置不同的列表。",
+      "scope": "范围（scope）",
+      "list": "命令",
+      "formatHint": "每行一个：<code>命令 - 描述</code>。最多 100 个命令；名称：a–z、0–9、_（最多 32 个字符）；描述：1–256 个字符。在末尾添加 <code>[ephemeral]</code> 表示回复仅发送者可见。",
+      "submit": "保存命令",
+      "load": "重新加载",
+      "delete": "删除此范围的命令"
+    },
+    "menu": {
+      "title": "菜单按钮",
+      "intro": "私聊中输入框旁的按钮：打开命令列表或你的 Web App（小程序）。",
+      "chatId": "私聊 ID（可选）",
+      "chatIdPlaceholder": "留空 = 所有聊天的默认设置",
+      "typeDefault": "默认",
+      "typeCommands": "命令",
+      "typeWebApp": "Web App",
+      "text": "按钮文字",
+      "url": "Web App URL",
+      "submit": "保存菜单按钮"
+    },
+    "rights": {
+      "title": "默认管理员权限",
+      "intro": "用户将机器人添加为管理员时建议的权限。用户在确认前仍可修改。",
+      "groups": "群组和超级群组",
+      "channels": "频道",
+      "submit": "保存权限",
+      "clear": "重置"
+    },
+    "dev": {
+      "title": "开发者工具",
+      "raw": "原始 API 响应",
+      "rawIntro": "本次会话中每个 get* 方法的最新结果。",
+      "log": "请求日志",
+      "clearLog": "清空",
+      "logIntro": "最近 100 个请求。不会显示机器人 Token，Secret Token 会被隐藏。"
+    }
+  },
+  "home": {
+    "eyebrow": "免费 · 开源 · Bot API 10.3",
+    "h1": "Telegram Bot Manager：在线管理机器人 Webhook、命令和资料",
+    "lead": "设置、检查和删除机器人的 Webhook，编辑命令、名称、描述、头像、菜单按钮和默认管理员权限——无需写代码或运行脚本。",
+    "point1": "直接在浏览器中运行——无需安装，无需后端",
+    "point2": "支持最新的 Telegram Bot API 10.3",
+    "point3": "显示 Webhook 错误并给出修复提示",
+    "featuresTitle": "BotFather 做不到的，这里一站搞定",
+    "features": [
+      { "icon": "🌐", "title": "Webhook 管理", "text": "setWebhook 支持 Secret Token、allowed_updates、max_connections、固定 IP 和自签名证书。安全地删除 Webhook 或丢弃待处理更新。" },
+      { "icon": "🩺", "title": "getWebhookInfo 检查", "text": "以本地时间显示待处理更新、最近的投递错误和同步错误，并针对 SSL、DNS、超时和 HTTP 错误给出提示。" },
+      { "icon": "📜", "title": "命令编辑器", "text": "以纯文本编辑 setMyCommands 并自动校验，支持不同范围（私聊、群组、管理员、指定聊天）和语言。" },
+      { "icon": "📝", "title": "资料和头像", "text": "以任意语言设置机器人名称、简短描述和描述。上传或删除照片或视频头像。" },
+      { "icon": "📱", "title": "菜单按钮", "text": "在命令列表和你的小程序（Web App）之间切换菜单按钮，可全局设置，也可针对单个聊天。" },
+      { "icon": "🛡", "title": "管理员权限", "text": "群组和频道的默认管理员权限，包括 Bot API 10.3 中的最新权限。" },
+      { "icon": "🧰", "title": "开发者工具", "text": "原始 JSON 响应、请求日志，以及每个操作可直接复制的 curl 命令。" },
+      { "icon": "🌍", "title": "5 种语言，深色模式", "text": "English、Русский、Español、Português 和简体中文。浅色和深色主题，支持手机。" }
+    ],
+    "howTitle": "使用方法",
+    "steps": [
+      { "title": "粘贴机器人 Token", "text": "从 @BotFather 复制 Token，然后点击“连接”。" },
+      { "title": "查看状态", "text": "Webhook、待处理更新、错误和机器人功能一目了然。" },
+      { "title": "修改设置", "text": "编辑并保存——每个操作都直接调用官方 Bot API 方法。" }
+    ],
+    "securityTitle": "Token 只属于你",
+    "security": [
+      "托管在 GitHub Pages 上的静态页面：没有任何服务器能保存或记录你的 Token。",
+      "请求从你的浏览器直接发送到 <code>api.telegram.org</code>（或你选择的 API 服务器）。",
+      "除非勾选“在此设备上记住”，Token 只保存在当前浏览器标签页中。“断开连接”会将其删除。",
+      "严格的内容安全策略（CSP），没有统计分析，也没有第三方脚本。<a href=\"https://github.com/f1devbin/telegram-bot-manager\" target=\"_blank\" rel=\"noopener\">源代码</a>完全开放——你可以审查，或部署自己的副本。"
+    ],
+    "guidesTitle": "教程",
+    "faqTitle": "常见问题",
+    "faq": [
+      { "q": "在这里输入机器人 Token 安全吗？", "a": "页面是完全静态的，没有后端。Token 只在你的浏览器中用于调用 Telegram Bot API，不会发送到其他任何地方。你可以审查开源代码或部署自己的副本。如果怀疑 Token 泄露，请在 @BotFather → /revoke 中撤销。" },
+      { "q": "如何检查 Telegram 机器人的 Webhook？", "a": "连接机器人并打开 Webhook 选项卡。它会调用 getWebhookInfo，显示 URL、待处理更新数量、最近一次投递错误及其时间，并给出修复提示。" },
+      { "q": "如何删除 Webhook 并改用 getUpdates？", "a": "打开 Webhook → 危险操作 → 删除 Webhook，可选择同时丢弃待处理更新。之后机器人即可通过 getUpdates（长轮询）接收更新——否则 Telegram 会返回“409 Conflict: can't use getUpdates method while webhook is active”。" },
+      { "q": "为什么待处理更新越来越多，机器人却不回复？", "a": "Telegram 无法将更新投递到你的 Webhook。查看最近的错误：SSL 问题、DNS 错误、超时，或服务器返回的 HTTP 4xx/5xx。修复服务器后，可按需丢弃队列中的更新。" },
+      { "q": "allowed_updates 是什么？", "a": "机器人接收的更新类型列表。默认接收除 chat_member、message_reaction 和 message_reaction_count 之外的所有类型。如需接收这三种，请显式选择。" },
+      { "q": "可以为群组或其他语言设置不同的命令吗？", "a": "可以。在“命令”选项卡中选择范围（所有私聊、所有群组、管理员、指定聊天或成员）和语言。Telegram 会为每个用户显示最匹配的列表。" },
+      { "q": "连接时提示“网络错误”，怎么办？", "a": "你的网络、浏览器扩展或所在地区可能屏蔽了 api.telegram.org。打开“高级：API 服务器”，使用自己的代理（仓库中提供免费的 Cloudflare Workers 模板）或本地 Bot API 服务器。" },
+      { "q": "免费吗？可以自行部署吗？", "a": "免费，采用 MIT 许可证。Fork 仓库并启用 GitHub Pages，或运行 <code>npm run build</code> 并将 <code>dist</code> 文件夹上传到任意静态托管。" }
+    ]
+  },
+  "guides": {
+    "setWebhook": {
+      "short": "设置 Webhook",
+      "title": "如何在线设置 Telegram 机器人 Webhook（setWebhook）",
+      "description": "几次点击即可设置 Telegram 机器人 Webhook：HTTPS URL、Secret Token、allowed_updates、max_connections 和自签名证书。附 curl 示例。",
+      "h1": "如何设置 Telegram 机器人 Webhook",
+      "lead": "使用 Webhook 后，Telegram 会把每条更新推送到你的 HTTPS 地址，无需轮询 getUpdates。下面介绍如何正确、安全地进行设置。",
+      "cta": "打开 Webhook 管理器",
+      "body": "<h2>要求</h2><ul><li>公网可访问的 <strong>HTTPS</strong> 地址，不支持普通 HTTP。</li><li>端口为 <strong>443、80、88 或 8443</strong>。</li><li>有效的 TLS 证书（TLS 1.2+）。自签名证书需上传其公钥才能使用。</li><li>服务器必须快速返回 HTTP 2xx，否则 Telegram 会重试，更新会不断积压。</li></ul><h2>在线设置 Webhook</h2><ol><li>打开 Telegram Bot Manager，粘贴从 @BotFather 获取的机器人 Token。</li><li>在 <strong>Webhook</strong> 选项卡中填写处理程序的 URL。</li><li>点击<strong>生成</strong>创建 Secret Token，并保存到服务器配置中。</li><li>如果只需要部分更新类型（或需要默认关闭的 <code>chat_member</code> / 表情回应），请选择 <code>allowed_updates</code>。</li><li>点击<strong>设置 Webhook</strong>，状态区域会立即显示结果。</li></ol><h2>参数</h2><table><thead><tr><th>参数</th><th>作用</th></tr></thead><tbody><tr><td><code>url</code></td><td>以 JSON POST 请求接收更新的 HTTPS 地址。</td></tr><tr><td><code>secret_token</code></td><td>1–256 个字符 <code>A-Z a-z 0-9 _ -</code>，在每个请求的 <code>X-Telegram-Bot-Api-Secret-Token</code> 请求头中发送。</td></tr><tr><td><code>allowed_updates</code></td><td>要接收的更新类型。空列表 = 除 chat_member、message_reaction、message_reaction_count 外的全部类型。</td></tr><tr><td><code>max_connections</code></td><td>同时 HTTPS 连接数，1–100（默认 40）。</td></tr><tr><td><code>ip_address</code></td><td>使用固定 IP 代替 DNS 解析。</td></tr><tr><td><code>certificate</code></td><td>自签名证书的公钥。</td></tr><tr><td><code>drop_pending_updates</code></td><td>丢弃队列中等待的更新。</td></tr></tbody></table><h2>使用 curl</h2>[[curl:setWebhook]]<p>使用自签名证书：</p>[[curl:setWebhookCert]]<h2>在服务器上校验 Secret Token</h2><p>务必将请求头与你的密钥比对并拒绝其他请求——仅靠 Webhook URL 并不安全。</p>[[curl:verifySecret]]<h2>常见错误</h2><ul><li><code>Bad Request: bad webhook: An HTTPS URL must be provided for webhook</code>——请使用 https://。</li><li><code>Bad Request: bad webhook: Webhook can be set up only on ports 80, 88, 443 or 8443</code>——更换端口，或在前面放置反向代理。</li><li><code>Bad Request: bad webhook: Failed to resolve host</code>——域名没有公网 DNS 记录。</li><li><code>Bad Request: secret token contains unallowed characters</code>——只能使用字母、数字、<code>_</code> 和 <code>-</code>。</li></ul>"
+    },
+    "webhookInfo": {
+      "short": "检查 Webhook（getWebhookInfo）",
+      "title": "Telegram getWebhookInfo 检查工具——调试机器人 Webhook",
+      "description": "在线检查 Telegram 机器人 Webhook：URL、待处理更新、最近错误及其含义。修复 SSL、DNS、超时和 4xx/5xx Webhook 错误。",
+      "h1": "使用 getWebhookInfo 检查 Telegram Webhook",
+      "lead": "getWebhookInfo 显示 Telegram 能否向你的机器人投递更新。下面介绍每个字段的含义以及常见投递错误的修复方法。",
+      "cta": "检查我的 Webhook",
+      "body": "<h2>WebhookInfo 字段</h2><table><thead><tr><th>字段</th><th>含义</th></tr></thead><tbody><tr><td><code>url</code></td><td>当前 Webhook URL。为空表示机器人使用 getUpdates（长轮询）。</td></tr><tr><td><code>pending_update_count</code></td><td>等待投递的更新数。数量持续增长说明服务器没有接收。</td></tr><tr><td><code>last_error_date</code>、<code>last_error_message</code></td><td>最近一次投递错误的时间（Unix）和内容。</td></tr><tr><td><code>last_synchronization_error_date</code></td><td>Telegram 数据中心之间同步更新时出错，通常是暂时的。</td></tr><tr><td><code>ip_address</code></td><td>Telegram 当前发送请求的 IP 地址。</td></tr><tr><td><code>max_connections</code></td><td>最大同时连接数。</td></tr><tr><td><code>allowed_updates</code></td><td>已订阅的更新类型；缺失表示使用默认集合。</td></tr><tr><td><code>has_custom_certificate</code></td><td>是否上传了自签名证书。</td></tr></tbody></table><h2>使用 curl 检查</h2>[[curl:getWebhookInfo]]<p>响应示例：</p>[[curl:webhookInfoResponse]]<h2>常见的 last_error_message</h2><ul><li><code>SSL error {error:...:certificate verify failed}</code>——证书链不完整、证书过期或为自签名。请安装完整证书链（fullchain.pem）或上传自签名证书的公钥。</li><li><code>Connection timed out</code> / <code>Read timeout expired</code>——服务器无法访问或响应太慢。请立即返回 200，再在后台处理更新。</li><li><code>Connection refused</code>——该端口没有服务在监听，或防火墙拦截了 Telegram 的 IP。</li><li><code>Failed to resolve host: Name or service not known</code>——域名 DNS 有问题。</li><li><code>Wrong response from the webhook: 404 Not Found</code>——URL 路径或路由错误。</li><li><code>Wrong response from the webhook: 401 Unauthorized</code> / <code>403 Forbidden</code>——服务器拒绝了请求，通常是 Secret Token 不匹配。</li><li><code>Wrong response from the webhook: 500/502/503</code>——处理程序崩溃，或反向代理后面的上游服务不可用。请查看服务器日志。</li></ul><h2>修复之后</h2><p>刷新状态：<code>last_error_date</code> 会保留到下一次出错，因此请将其时间与当前时间比较。如果队列中有过期的更新，可用 <code>drop_pending_updates</code> 丢弃。</p>"
+    },
+    "deleteWebhook": {
+      "short": "删除 Webhook",
+      "title": "如何删除 Telegram 机器人 Webhook 并使用 getUpdates",
+      "description": "在线删除 Telegram 机器人 Webhook（deleteWebhook），丢弃待处理更新，解决“409 Conflict: can't use getUpdates method while webhook is active”。",
+      "h1": "如何删除 Telegram 机器人 Webhook",
+      "lead": "删除 Webhook 可以让机器人切回长轮询（getUpdates）、迁移到其他服务器，或阻止失效的地址继续积压更新。",
+      "cta": "打开 Webhook 管理器",
+      "body": "<h2>什么时候需要</h2><ul><li>你在本地用基于 getUpdates 的库运行机器人，看到 <code>409 Conflict: can't use getUpdates method while webhook is active; use deleteWebhook to delete the webhook first</code>。</li><li>你要把机器人迁移到其他服务器或域名。</li><li>旧地址已经不存在，但 Telegram 仍在重试。</li></ul><h2>在线删除 Webhook</h2><ol><li>使用 Token 连接机器人。</li><li>打开 <strong>Webhook → 危险操作</strong>。</li><li>如果不需要队列中的更新，勾选<strong>丢弃待处理更新</strong>。</li><li>点击<strong>删除 Webhook</strong> 并确认。</li></ol><h2>使用 curl</h2>[[curl:deleteWebhook]]<p>然后通过长轮询接收更新：</p>[[curl:getUpdates]]<h2>只清空队列</h2><p>如果只想丢弃卡住的更新而保留 Webhook，请使用<strong>丢弃待处理更新</strong>：它会用相同的 URL 和 <code>drop_pending_updates=true</code> 再次调用 setWebhook。请输入 Secret Token 以保留它。</p><h2>注意</h2><ul><li><code>deleteWebhook</code> 不会影响命令、资料或其他设置。</li><li>如果不使用 <code>drop_pending_updates</code>，队列中的更新（最多保留 24 小时）会在之后的 getUpdates 调用中返回。</li></ul>"
+    },
+    "botCommands": {
+      "short": "机器人命令编辑器",
+      "title": "Telegram 机器人命令编辑器——在线使用 setMyCommands",
+      "description": "在线编辑 Telegram 机器人命令：按范围和语言设置 setMyCommands、deleteMyCommands、限制与格式。免费，无需写代码。",
+      "h1": "在线编辑 Telegram 机器人命令",
+      "lead": "机器人命令显示在菜单中，以及用户输入“/”时的提示里。你可以为私聊、群组、管理员和不同语言设置不同的列表。",
+      "cta": "打开命令编辑器",
+      "body": "<h2>格式</h2><p>每行一个命令，名称和描述之间用短横线分隔：</p>[[curl:commandsText]]<ul><li>每个列表最多 <strong>100</strong> 个命令。</li><li>名称：1–32 个字符，只能是小写英文字母、数字和下划线。开头的“/”会被自动去掉。</li><li>描述：1–256 个字符。</li><li><code>[ephemeral]</code> 表示该命令的回复仅发送者可见（Bot API 10.2）。</li></ul><h2>范围（scope）</h2><table><thead><tr><th>Scope</th><th>谁能看到列表</th></tr></thead><tbody><tr><td><code>default</code></td><td>没有更具体的范围时，所有人。</td></tr><tr><td><code>all_private_chats</code></td><td>所有私聊。</td></tr><tr><td><code>all_group_chats</code></td><td>所有群组和超级群组。</td></tr><tr><td><code>all_chat_administrators</code></td><td>所有群组的管理员。</td></tr><tr><td><code>chat</code></td><td>指定的一个聊天（chat_id）。</td></tr><tr><td><code>chat_administrators</code></td><td>指定聊天的管理员。</td></tr><tr><td><code>chat_member</code></td><td>指定聊天中的一个成员（chat_id + user_id）。</td></tr></tbody></table><p>每个范围还可以按 <code>language_code</code>（两个字母的 ISO 639-1）设置不同列表。Telegram 会先选最具体的范围，再选用户语言，最后选不带语言的列表。</p><h2>使用 curl</h2>[[curl:setMyCommands]]<p>删除列表：</p>[[curl:deleteMyCommands]]<h2>小贴士</h2><ul><li>描述尽量简短——在较窄的菜单中会被截断。</li><li>用户重新打开聊天后才会看到更改，客户端会缓存命令列表。</li><li>在“菜单按钮”选项卡中，可以让输入框旁的按钮显示命令列表或小程序。</li></ul>"
+    }
+  },
+  "app": {
+    "common": {
+      "copied": "已复制到剪贴板",
+      "copyFailed": "复制失败——请手动选择文本",
+      "copy": "复制",
+      "yes": "是",
+      "no": "否",
+      "show": "显示",
+      "hide": "隐藏",
+      "allLanguages": "所有语言（默认）",
+      "selectAll": "全选",
+      "selectNone": "全部取消",
+      "curlHint": "请先设置变量：export BOT_TOKEN=…（如使用 Secret Token，还需 WEBHOOK_SECRET=…）。"
+    },
+    "time": {
+      "seconds": "{n} 秒",
+      "minutes": "{n} 分钟",
+      "hours": "{n} 小时"
+    },
+    "errors": {
+      "network": "网络错误：此浏览器无法访问 api.telegram.org。请检查网络连接和浏览器扩展（如广告拦截器），或在“高级：API 服务器”中设置代理。",
+      "timeout": "Bot API 服务器未及时响应，请重试。",
+      "unauthorized": "Telegram 拒绝了该 Token。请在 @BotFather 中检查（它可能已被撤销）。",
+      "flood": "请求过多：Telegram 要求等待 {time} 后再试。",
+      "telegram": "Telegram 错误：{description}"
+    },
+    "validation": {
+      "token_format": "这看起来不像机器人 Token。正确格式：123456789:AAH…",
+      "url_invalid": "请输入有效的 URL。",
+      "url_https": "URL 必须以 https:// 开头",
+      "url_port": "仅支持 443、80、88 和 8443 端口。",
+      "secret_format": "1–256 个字符：只能使用 A–Z、a–z、0–9、_ 和 -。",
+      "ip_format": "请输入有效的 IPv4 或 IPv6 地址。",
+      "max_connections": "请输入 1 到 100 之间的整数。",
+      "language_code": "请使用两个小写字母的代码，例如 zh。",
+      "chat_id": "请输入数字聊天 ID 或 @username。",
+      "user_id": "请输入数字用户 ID。",
+      "too_long": "太长：最多 {max} 个字符。",
+      "required": "此项为必填。",
+      "file_required": "请选择文件。",
+      "updates_empty": "请至少选择一种更新类型，或切换为“默认”。",
+      "cmd_format": "格式应为“命令 - 描述”",
+      "cmd_name": "无效命令“{value}”：只能使用 a–z、0–9 和 _，最多 {max} 个字符",
+      "cmd_description": "“{value}”的描述必须为 1–256 个字符",
+      "cmd_duplicate": "命令“{value}”重复",
+      "cmd_limit": "命令过多：最多 100 个。"
+    },
+    "me": {
+      "can_join_groups": "可被添加到群组",
+      "can_read_all_group_messages": "读取所有群消息（隐私模式已关闭）",
+      "supports_inline_queries": "内联模式",
+      "can_connect_to_business": "Telegram Business",
+      "has_main_web_app": "主小程序",
+      "has_topics_enabled": "私聊话题",
+      "allows_users_to_create_topics": "用户可创建话题",
+      "supports_guest_queries": "访客模式",
+      "supports_join_request_queries": "入群申请处理",
+      "can_manage_bots": "可管理其他机器人"
+    },
+    "webhook": {
+      "statusPolling": "未设置",
+      "statusError": "有错误",
+      "statusActive": "正常",
+      "notSet": "未设置 Webhook——机器人通过 getUpdates（长轮询）接收更新。",
+      "none": "—",
+      "updatesDefaultShort": "默认（除 chat_member 和表情回应外全部）",
+      "statUrl": "URL",
+      "statPending": "待处理更新",
+      "statMax": "最大连接数",
+      "statIp": "IP 地址",
+      "statCert": "自定义证书",
+      "statUpdates": "allowed_updates",
+      "lastError": "最近投递错误：",
+      "syncError": "最近同步错误：",
+      "syncErrorHint": "Telegram 在数据中心之间同步更新失败。通常是暂时的，与你的服务器无关。",
+      "optIn": "需显式选择",
+      "secretGenerated": "已生成密钥。请在设置 Webhook 之前将其保存到服务器配置中。",
+      "saved": "Webhook 已保存。",
+      "noWebhook": "未设置 Webhook。",
+      "dropConfirm": "丢弃 {count} 条待处理更新？它们将无法恢复。",
+      "dropped": "已丢弃待处理更新。",
+      "deleteConfirm": "删除 Webhook？机器人将不再通过该 URL 接收更新。",
+      "deleted": "Webhook 已删除。机器人现在可以使用 getUpdates。",
+      "hints": {
+        "ssl": "证书问题：请安装完整证书链（fullchain.pem）、更新过期证书，或上传自签名证书的公钥。",
+        "dns": "Telegram 无法解析你的域名。请检查 DNS A/AAAA 记录，或设置固定 IP 地址。",
+        "refused": "该主机和端口上没有服务接受连接，或防火墙拦截了 Telegram。请检查服务器和端口。",
+        "timeout": "服务器无法访问或响应太慢。请立即返回 200，并异步处理更新。",
+        "http3xx": "你的地址返回了重定向。Telegram 不会跟随重定向——请使用最终 URL。",
+        "http4xx": "服务器拒绝了请求：请检查 URL 路径、身份验证和 Secret Token 校验。",
+        "http5xx": "处理程序出错。请查看服务器日志以及反向代理后面的上游服务。"
+      }
+    },
+    "updateGroups": {
+      "messages": "消息",
+      "interactions": "按钮、内联和表情回应",
+      "members": "成员和聊天",
+      "payments": "支付",
+      "business": "Telegram Business",
+      "other": "投票及其他"
+    },
+    "updates": {
+      "message": "新消息",
+      "edited_message": "已编辑的消息",
+      "channel_post": "频道帖子",
+      "edited_channel_post": "已编辑的频道帖子",
+      "guest_message": "来自机器人未加入聊天的访客消息",
+      "callback_query": "内联按钮点击",
+      "inline_query": "内联查询",
+      "chosen_inline_result": "已选择的内联结果",
+      "message_reaction": "用户表情回应",
+      "message_reaction_count": "匿名表情回应计数",
+      "stopped_message_generation": "用户停止了消息生成",
+      "my_chat_member": "机器人被添加、移除或屏蔽",
+      "chat_member": "成员状态变化",
+      "chat_join_request": "入群申请",
+      "chat_boost": "聊天助力",
+      "removed_chat_boost": "撤销的助力",
+      "shipping_query": "配送查询",
+      "pre_checkout_query": "预结账查询",
+      "purchased_paid_media": "付费媒体购买",
+      "subscription": "订阅变更",
+      "business_connection": "Business 连接",
+      "business_message": "Business 消息",
+      "edited_business_message": "已编辑的 Business 消息",
+      "deleted_business_messages": "已删除的 Business 消息",
+      "poll": "投票状态",
+      "poll_answer": "投票回答",
+      "managed_bot": "托管机器人变更"
+    },
+    "profile": {
+      "noChanges": "没有更改。",
+      "saved": "资料已保存。",
+      "fields": {
+        "name": "名称",
+        "short": "简短描述",
+        "description": "描述"
+      }
+    },
+    "photo": {
+      "saved": "头像已更新。",
+      "removeConfirm": "删除机器人的头像？",
+      "removed": "头像已删除。"
+    },
+    "commands": {
+      "line": "第 {n} 行",
+      "saved": "已保存 {n} 个命令。",
+      "deleteConfirm": "删除此范围和语言的命令列表？",
+      "deleted": "命令已删除。"
+    },
+    "scopes": {
+      "default": { "label": "默认", "hint": "没有更具体的范围适用于用户时使用。" },
+      "all_private_chats": { "label": "所有私聊", "hint": "与机器人的所有私聊。" },
+      "all_group_chats": { "label": "所有群组", "hint": "所有群组和超级群组。" },
+      "all_chat_administrators": { "label": "所有群管理员", "hint": "所有群组和超级群组的管理员。" },
+      "chat": { "label": "指定聊天", "hint": "通过 ID 或 @username 指定一个聊天（不支持频道）。" },
+      "chat_administrators": { "label": "指定聊天的管理员", "hint": "某一个聊天的管理员。" },
+      "chat_member": { "label": "指定聊天的成员", "hint": "某一个聊天中的一个用户。" }
+    },
+    "menu": {
+      "saved": "菜单按钮已保存。"
+    },
+    "rights": {
+      "is_anonymous": "保持匿名",
+      "can_manage_chat": "管理聊天（日志、统计）",
+      "can_delete_messages": "删除消息",
+      "can_manage_video_chats": "管理视频聊天",
+      "can_restrict_members": "封禁和限制成员",
+      "can_promote_members": "添加管理员",
+      "can_change_info": "修改聊天信息",
+      "can_invite_users": "通过链接邀请用户",
+      "can_post_stories": "发布快拍",
+      "can_edit_stories": "编辑他人的快拍",
+      "can_delete_stories": "删除他人的快拍",
+      "can_send_welcome_messages": "管理欢迎消息",
+      "can_post_messages": "发布消息",
+      "can_edit_messages": "编辑他人的消息",
+      "can_manage_direct_messages": "管理私信",
+      "can_pin_messages": "置顶消息",
+      "can_manage_topics": "管理话题",
+      "can_manage_tags": "编辑成员标签",
+      "saved": "默认权限已保存。",
+      "clearConfirm": "重置默认管理员权限？",
+      "cleared": "默认权限已重置。"
+    },
+    "dev": {
+      "empty": "暂无内容。",
+      "request": "请求",
+      "response": "响应"
+    }
+  }
+}
