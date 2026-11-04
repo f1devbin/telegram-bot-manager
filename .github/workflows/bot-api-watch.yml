@@ -1,0 +1,50 @@
+name: Bot API watch
+
+# Weekly check of the latest Telegram Bot API spec against src/assets/js/data.js.
+# Opens (or updates) an issue labelled "bot-api-update" when something is missing.
+on:
+  schedule:
+    - cron: '17 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - id: check
+        name: Compare with Bot API spec
+        run: |
+          set +e
+          node scripts/check-bot-api.mjs > report.md
+          code=$?
+          cat report.md
+          echo "status=$code" >> "$GITHUB_OUTPUT"
+          [ "$code" -le 1 ]
+      - name: Open or update issue
+        if: steps.check.outputs.status == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create bot-api-update --color 2481cc --description "Telegram Bot API changed" 2>/dev/null || true
+          version=$(sed -n 's/^Spec: \*\*Bot API \([0-9.]*\)\*\*.*/\1/p' report.md)
+          {
+            echo "The Telegram Bot API spec differs from \`src/assets/js/data.js\`."
+            echo
+            cat report.md
+            echo
+            echo "To update: edit \`src/assets/js/data.js\` (lists and \`BOT_API_VERSION\`), add labels to all \`src/i18n/*.json\`, then run \`npm test\` and \`node scripts/check-bot-api.mjs\`."
+          } > body.md
+          existing=$(gh issue list --label bot-api-update --state open --json number --jq '.[0].number')
+          if [ -n "$existing" ]; then
+            gh issue edit "$existing" --title "Update to Telegram Bot API $version" --body-file body.md
+          else
+            gh issue create --title "Update to Telegram Bot API $version" --label bot-api-update --body-file body.md
+          fi

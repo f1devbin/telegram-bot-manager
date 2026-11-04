@@ -1,6 +1,6 @@
 {
   "name": "telegram-bot-manager",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "private": true,
   "description": "Free online Telegram Bot Manager: set, check and delete webhooks, edit commands, profile, menu button and admin rights right in your browser.",
   "type": "module",
@@ -8,6 +8,7 @@
     "build": "node scripts/build.mjs",
     "test": "node --test \"tests/*.test.mjs\"",
     "serve": "node scripts/serve.mjs",
+    "check:bot-api": "node scripts/check-bot-api.mjs",
     "start": "node scripts/build.mjs && node scripts/serve.mjs"
   },
   "engines": {

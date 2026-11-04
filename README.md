@@ -90,6 +90,12 @@ npm run build && node scripts/screenshots.mjs   # e2e smoke test (Playwright + C
 
 **New Bot API version:** update `src/assets/js/data.js` (update types, admin rights, `getMe` flags) and the translations; `npm test` lists every missing label.
 
+## Automation
+
+- **CI** (`.github/workflows/ci.yml`, on pull requests): unit tests, build, end-to-end test in Chromium against a mocked Bot API, and a Lighthouse audit (accessibility and best practices must stay ≥ 95/90; reports are attached to the run).
+- **Bot API watch** (`.github/workflows/bot-api-watch.yml`, weekly): compares the latest Bot API spec with `src/assets/js/data.js` via `scripts/check-bot-api.mjs` and opens an issue labelled `bot-api-update` when something is missing.
+- **Agent instructions** for updating the project are in [`CLAUDE.md`](CLAUDE.md).
+
 ## FAQ
 
 **How do I check my bot's webhook?** Connect the bot and open the Webhook tab: it calls `getWebhookInfo` and explains the last error.
