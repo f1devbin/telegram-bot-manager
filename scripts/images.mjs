@@ -3,6 +3,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { loadPlaywright } from './playwright.mjs';
+import { BOT_API_VERSION } from '../src/assets/js/data.js';
 
 const root = (p) => fileURLToPath(new URL(`../${p}`, import.meta.url));
 const svg = await readFile(root('src/assets/img/favicon.svg'), 'utf8');
@@ -29,7 +30,7 @@ const card = (width, height) => `<!doctype html><html><head><style>
 </style></head><body>
   <div class="brand"><img src="${svgUri}" alt=""><h1>Telegram Bot<br>Manager</h1></div>
   <p>Set, check &amp; delete webhooks, edit commands, profile, menu button and admin rights — online, in your browser.</p>
-  <div class="chips"><span class="chip">setWebhook</span><span class="chip">getWebhookInfo</span><span class="chip">deleteWebhook</span><span class="chip">setMyCommands</span><span class="chip">Bot API 10.3</span></div>
+  <div class="chips"><span class="chip">setWebhook</span><span class="chip">getWebhookInfo</span><span class="chip">deleteWebhook</span><span class="chip">setMyCommands</span><span class="chip">Bot API ${BOT_API_VERSION}</span></div>
   <span class="url">github.com/f1devbin/telegram-bot-manager</span>
 </body></html>`;
 

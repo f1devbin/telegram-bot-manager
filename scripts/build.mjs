@@ -131,6 +131,14 @@ export function compareLocales(base, other, path = '') {
   return problems;
 }
 
+// The Bot API version lives only in data.js; locale strings reference it as {botApiVersion}.
+function fillVersion(node, version) {
+  if (typeof node === 'string') return node.replaceAll('{botApiVersion}', version);
+  if (Array.isArray(node)) return node.map((x) => fillVersion(x, version));
+  if (node && typeof node === 'object') return Object.fromEntries(Object.entries(node).map(([k, v]) => [k, fillVersion(v, version)]));
+  return node;
+}
+
 export async function loadLocales() {
   const locales = {};
   for (const lang of LANGS) {
@@ -138,6 +146,8 @@ export async function loadLocales() {
   }
   const problems = LANGS.slice(1).flatMap((lang) => compareLocales(locales.en, locales[lang.code], lang.code));
   if (problems.length) throw new Error(`Locale mismatch:\n  ${problems.join('\n  ')}`);
+  const { BOT_API_VERSION } = await import('../src/assets/js/data.js');
+  for (const code of Object.keys(locales)) locales[code] = fillVersion(locales[code], BOT_API_VERSION);
   return locales;
 }
 

@@ -153,11 +153,11 @@
     }
   },
   "home": {
-    "eyebrow": "Free · Open source · Bot API 10.3",
+    "eyebrow": "Free · Open source · Bot API {botApiVersion}",
     "h1": "Telegram Bot Manager: webhooks, commands and profile online",
     "lead": "Set, check and delete your bot's webhook, edit commands, name, description, avatar, menu button and default admin rights — without writing code or running scripts.",
     "point1": "Works right in the browser — no install, no backend",
-    "point2": "Supports the latest Telegram Bot API 10.3",
+    "point2": "Supports the latest Telegram Bot API {botApiVersion}",
     "point3": "Shows webhook errors with hints on how to fix them",
     "featuresTitle": "Everything BotFather can't do in one place",
     "features": [
@@ -189,7 +189,7 @@
       {
         "icon": "🛡",
         "title": "Admin rights",
-        "text": "Default administrator rights for groups and channels, including the newest rights from Bot API 10.3."
+        "text": "Default administrator rights for groups and channels, including the newest rights from Bot API {botApiVersion}."
       },
       {
         "icon": "🧰",

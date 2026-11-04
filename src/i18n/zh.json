@@ -153,11 +153,11 @@
     }
   },
   "home": {
-    "eyebrow": "免费 · 开源 · Bot API 10.3",
+    "eyebrow": "免费 · 开源 · Bot API {botApiVersion}",
     "h1": "Telegram Bot Manager：在线管理机器人 Webhook、命令和资料",
     "lead": "设置、检查和删除机器人的 Webhook，编辑命令、名称、描述、头像、菜单按钮和默认管理员权限——无需写代码或运行脚本。",
     "point1": "直接在浏览器中运行——无需安装，无需后端",
-    "point2": "支持最新的 Telegram Bot API 10.3",
+    "point2": "支持最新的 Telegram Bot API {botApiVersion}",
     "point3": "显示 Webhook 错误并给出修复提示",
     "featuresTitle": "BotFather 做不到的，这里一站搞定",
     "features": [
@@ -166,7 +166,7 @@
       { "icon": "📜", "title": "命令编辑器", "text": "以纯文本编辑 setMyCommands 并自动校验，支持不同范围（私聊、群组、管理员、指定聊天）和语言。" },
       { "icon": "📝", "title": "资料和头像", "text": "以任意语言设置机器人名称、简短描述和描述。上传或删除照片或视频头像。" },
       { "icon": "📱", "title": "菜单按钮", "text": "在命令列表和你的小程序（Web App）之间切换菜单按钮，可全局设置，也可针对单个聊天。" },
-      { "icon": "🛡", "title": "管理员权限", "text": "群组和频道的默认管理员权限，包括 Bot API 10.3 中的最新权限。" },
+      { "icon": "🛡", "title": "管理员权限", "text": "群组和频道的默认管理员权限，包括 Bot API {botApiVersion} 中的最新权限。" },
       { "icon": "🧰", "title": "开发者工具", "text": "原始 JSON 响应、请求日志，以及每个操作可直接复制的 curl 命令。" },
       { "icon": "🌍", "title": "5 种语言，深色模式", "text": "English、Русский、Español、Português 和简体中文。浅色和深色主题，支持手机。" }
     ],

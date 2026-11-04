@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.1.0 — 2026-11-04
+
+### Added
+- `scripts/check-bot-api.mjs`: compares the latest Bot API spec with the project's reference data.
+- Weekly “Bot API watch” workflow that opens an issue when the API changes.
+- CI runs the end-to-end test and a Lighthouse audit on every pull request; duplicate push runs removed.
+- `CLAUDE.md` with the Bot API update procedure.
+
+### Changed
+- The Bot API version is defined once in `data.js`; translations and the OG image use it automatically.
+
 ## 3.0.1 — 2026-10-08
 
 ### Fixed
