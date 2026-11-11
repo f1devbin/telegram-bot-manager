@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.2.0 — 2026-11-11
+
+### Changed
+- Updated to Telegram Bot API 10.4: new `widget_query` and `shared_widget_query` update types in the `allowed_updates` picker.
+
+### Added
+- Menu button tab explains where the main Mini App is configured (@BotFather) and how to check that it is enabled.
+
 ## 3.1.0 — 2026-11-04
 
 ### Added

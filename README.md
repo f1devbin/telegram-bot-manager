@@ -1,7 +1,7 @@
 # Telegram Bot Manager — online webhook & bot settings tool
 
 [![Live demo](https://img.shields.io/badge/demo-online-2481cc?logo=telegram)](https://f1devbin.github.io/telegram-bot-manager/)
-[![Bot API](https://img.shields.io/badge/Bot%20API-10.3-2481cc)](https://core.telegram.org/bots/api)
+[![Bot API](https://img.shields.io/badge/Bot%20API-10.4-2481cc)](https://core.telegram.org/bots/api)
 [![Deploy](https://github.com/f1devbin/telegram-bot-manager/actions/workflows/pages.yml/badge.svg)](https://github.com/f1devbin/telegram-bot-manager/actions/workflows/pages.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 

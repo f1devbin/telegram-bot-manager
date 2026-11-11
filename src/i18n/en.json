@@ -126,6 +126,7 @@
     "menu": {
       "title": "Menu button",
       "intro": "The button next to the message field in private chats: opens the command list or your Web App (Mini App).",
+      "miniAppHint": "The main Mini App (the “Open” button in the bot profile) can be set up only in <a href=\"https://t.me/BotFather\" target=\"_blank\" rel=\"noopener\">@BotFather</a> → /mybots → Bot Settings → Configure Mini App; extra Mini Apps with their own links are created with /newapp. Whether the main Mini App is enabled is shown under “Capabilities” on the left.",
       "chatId": "Private chat ID (optional)",
       "chatIdPlaceholder": "Empty = default for all chats",
       "typeDefault": "Default",
@@ -412,6 +413,8 @@
       "message_reaction": "Reactions by users",
       "message_reaction_count": "Anonymous reaction counts",
       "stopped_message_generation": "User stopped message generation",
+      "widget_query": "Widget queries",
+      "shared_widget_query": "Shared widget queries",
       "my_chat_member": "Bot added, removed or blocked",
       "chat_member": "Member status changes",
       "chat_join_request": "Join requests",
