@@ -1,5 +1,5 @@
 // Telegram Bot API reference data. Keep in sync with https://core.telegram.org/bots/api
-export const BOT_API_VERSION = '10.3';
+export const BOT_API_VERSION = '10.4';
 
 export const DEFAULT_API_BASE = 'https://api.telegram.org';
 
@@ -25,6 +25,8 @@ export const UPDATE_GROUPS = [
       { type: 'message_reaction', optIn: true },
       { type: 'message_reaction_count', optIn: true },
       { type: 'stopped_message_generation' },
+      { type: 'widget_query' },
+      { type: 'shared_widget_query' },
     ],
   },
   {
