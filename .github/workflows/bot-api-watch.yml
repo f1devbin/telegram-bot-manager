@@ -40,7 +40,7 @@ jobs:
             echo
             cat report.md
             echo
-            echo "To update: edit \`src/assets/js/data.js\` (lists and \`BOT_API_VERSION\`), add labels to all \`src/i18n/*.json\`, then run \`npm test\` and \`node scripts/check-bot-api.mjs\`."
+            echo "To update: edit \`src/assets/js/data.js\` (lists and \`BOT_API_VERSION\`), add labels to all \`src/i18n/*.json\`, add new method parameters to \`METHOD_PARAMS\` in \`scripts/check-bot-api.mjs\`, then run \`npm test\` and \`node scripts/check-bot-api.mjs\`."
           } > body.md
           existing=$(gh issue list --label bot-api-update --state open --json number --jq '.[0].number')
           if [ -n "$existing" ]; then
