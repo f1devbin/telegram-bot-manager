@@ -6,6 +6,7 @@
 - The bot token is used only in the browser to call the Bot API server (`https://api.telegram.org` by default, or the server set in “Advanced: API server”).
 - The token is kept in `sessionStorage` (current tab) or, if “Remember on this device” is checked, in `localStorage`. “Disconnect” removes it.
 - A strict Content Security Policy allows scripts only from the site itself.
+- The optional Cloudflare Worker rejects requests whose `Origin` is not listed in `ALLOWED_ORIGIN` (and requests without an `Origin`) with 403; `ALLOWED_ORIGIN="*"` is an explicit opt-in to a public proxy.
 
 ## Reporting a vulnerability
 
