@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.3.1 — 2026-11-21
+
+### Fixed
+- The optional Cloudflare Worker CORS proxy now rejects requests from origins not listed in `ALLOWED_ORIGIN` and requests without an `Origin` header (403) instead of proxying them, so a deployed worker cannot be used as an open Telegram proxy. `ALLOWED_ORIGIN="*"` remains an explicit opt-in.
+- Added unit tests for origin checks, preflight, path validation and proxying.
+
 ## 3.3.0 — 2026-11-21
 
 ### Added

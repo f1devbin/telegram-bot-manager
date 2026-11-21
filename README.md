@@ -45,7 +45,7 @@ If a token leaks, revoke it with [@BotFather](https://t.me/BotFather) → `/revo
 Some networks, countries or browser extensions block `api.telegram.org`. In that case deploy the bundled [Cloudflare Worker](proxy/cloudflare-worker.js) (the free plan is enough):
 
 1. Cloudflare dashboard → **Workers & Pages** → **Create** → **Worker** → paste `proxy/cloudflare-worker.js` → **Deploy**.
-2. Optional: set the `ALLOWED_ORIGIN` variable to your site origin (default `https://f1devbin.github.io`).
+2. Set the `ALLOWED_ORIGIN` variable to your site origin (default `https://f1devbin.github.io`; comma-separated for several). Requests from other origins, and requests without an `Origin` header, are rejected with 403. Use `*` only for a deliberately public proxy.
 3. In Telegram Bot Manager open **Advanced: API server** and enter the worker URL.
 
 A [local Bot API server](https://github.com/tdlib/telegram-bot-api) (`http://localhost:8081`) works the same way.

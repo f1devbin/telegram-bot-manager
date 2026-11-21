@@ -26,7 +26,7 @@
 
 ## Если api.telegram.org заблокирован
 
-Разверните [Cloudflare Worker](proxy/cloudflare-worker.js) из репозитория (бесплатного тарифа достаточно) и укажите его URL в разделе «Дополнительно: сервер API». Подробности — в [README на английском](README.md#cors-proxy).
+Разверните [Cloudflare Worker](proxy/cloudflare-worker.js) из репозитория (бесплатного тарифа достаточно) и укажите его URL в разделе «Дополнительно: сервер API». Воркер принимает только браузерные запросы с `Origin` из `ALLOWED_ORIGIN`; остальные получают 403. `ALLOWED_ORIGIN="*"` — явный выбор публичного прокси. Подробности — в [README на английском](README.md#cors-proxy).
 
 ## Запуск у себя
 
