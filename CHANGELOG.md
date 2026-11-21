@@ -9,7 +9,7 @@
 
 ### Changed
 - Accessibility: focus moves to the active tab after connecting; validation errors are linked to their field with `aria-describedby`; the theme toggle exposes `aria-pressed`; radio groups have accessible names; the toast live region is no longer nested.
-- CI: Playwright 1.65.1 with a browser cache; Lighthouse performance and SEO thresholds are now errors (≥ 90 and ≥ 95).
+- CI: Playwright 1.65.1 with a browser cache; the Lighthouse SEO threshold is now an error (≥ 95), while performance stays a warning (≥ 85) because GitHub runners vary.
 
 ## 3.2.0 — 2026-11-11
 
