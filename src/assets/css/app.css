@@ -387,6 +387,9 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--accent); width
 @keyframes toast-in { from { transform: translateY(8px); opacity: 0; } }
 
 /* ---------- Landing & guides ---------- */
+.lang-suggest { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-top: 16px; }
+.lang-suggest p { margin: 0; flex: 1 1 240px; }
+
 .section { padding: 44px 16px; }
 .section > h2 { font-size: 1.7rem; margin-bottom: 20px; }
 .feature-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }

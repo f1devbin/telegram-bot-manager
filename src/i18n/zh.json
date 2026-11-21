@@ -301,6 +301,11 @@
     }
   },
   "app": {
+    "langSuggest": {
+      "text": "本站还提供其他语言版本。",
+      "open": "打开{language}版本",
+      "dismiss": "关闭"
+    },
     "common": {
       "copied": "已复制到剪贴板",
       "copyFailed": "复制失败——请手动选择文本",
@@ -379,7 +384,12 @@
       "secretGenerated": "已生成密钥。请在设置 Webhook 之前将其保存到服务器配置中。",
       "saved": "Webhook 已保存。",
       "noWebhook": "未设置 Webhook。",
-      "dropConfirm": "丢弃 {count} 条待处理更新？它们将无法恢复。",
+      "dropConfirm": {
+        "one": "丢弃 {count} 条待处理更新？此操作无法撤销。",
+        "few": "丢弃 {count} 条待处理更新？此操作无法撤销。",
+        "many": "丢弃 {count} 条待处理更新？此操作无法撤销。",
+        "other": "丢弃 {count} 条待处理更新？此操作无法撤销。"
+      },
       "dropped": "已丢弃待处理更新。",
       "deleteConfirm": "删除 Webhook？机器人将不再通过该 URL 接收更新。",
       "deleted": "Webhook 已删除。机器人现在可以使用 getUpdates。",
@@ -448,7 +458,12 @@
     },
     "commands": {
       "line": "第 {n} 行",
-      "saved": "已保存 {n} 个命令。",
+      "saved": {
+        "one": "已保存 {n} 个命令。",
+        "few": "已保存 {n} 个命令。",
+        "many": "已保存 {n} 个命令。",
+        "other": "已保存 {n} 个命令。"
+      },
       "deleteConfirm": "删除此范围和语言的命令列表？",
       "deleted": "命令已删除。"
     },

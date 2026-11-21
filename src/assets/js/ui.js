@@ -69,20 +69,40 @@ export async function copyText(text) {
 }
 
 // Marks a field invalid and shows a message under it. Pass null to clear.
+// The message is linked through aria-describedby, so screen readers announce it again
+// when the user returns to the field (role="alert" covers the first insertion).
+const fieldErrorIds = new WeakMap();
+let fieldErrorSeq = 0;
+
+function fieldErrorId(input) {
+  let id = fieldErrorIds.get(input);
+  if (!id) {
+    id = `${input.id || `field-${++fieldErrorSeq}`}-error`;
+    fieldErrorIds.set(input, id);
+  }
+  return id;
+}
+
 export function setFieldError(input, message) {
   const field = input.closest('.field') ?? input.parentElement;
-  let node = field.querySelector('.field-error');
+  const errorId = fieldErrorId(input);
+  const describedBy = new Set((input.getAttribute('aria-describedby') ?? '').split(/\s+/).filter(Boolean));
+  const node = field.querySelector('.field-error');
   if (!message) {
     input.removeAttribute('aria-invalid');
+    describedBy.delete(errorId);
+    if (describedBy.size) input.setAttribute('aria-describedby', [...describedBy].join(' '));
+    else input.removeAttribute('aria-describedby');
     node?.remove();
     return;
   }
   input.setAttribute('aria-invalid', 'true');
-  if (!node) {
-    node = el('p', { class: 'field-error', role: 'alert' });
-    field.append(node);
-  }
-  node.textContent = message;
+  const error = node ?? el('p', { class: 'field-error', role: 'alert' });
+  if (!node) field.append(error);
+  error.id = errorId;
+  error.textContent = message;
+  describedBy.add(errorId);
+  input.setAttribute('aria-describedby', [...describedBy].join(' '));
 }
 
 // Runs validators ([input, errorCode|null, vars]) and focuses the first invalid input.

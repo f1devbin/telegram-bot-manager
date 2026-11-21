@@ -13,18 +13,36 @@ export function initI18n() {
 }
 
 export function hasKey(key) {
-  return typeof lookup(key) === 'string';
+  const value = lookup(key);
+  return typeof value === 'string' || (value !== null && typeof value === 'object');
 }
 
 function lookup(key) {
   return key.split('.').reduce((node, part) => (node == null ? undefined : node[part]), dict);
 }
 
+function interpolate(value, vars) {
+  return value.replace(/\{(\w+)\}/g, (match, name) => (name in vars ? String(vars[name]) : match));
+}
+
 export function t(key, vars) {
   const value = lookup(key);
   if (typeof value !== 'string') return key;
   if (!vars) return value;
-  return value.replace(/\{(\w+)\}/g, (match, name) => (name in vars ? String(vars[name]) : match));
+  return interpolate(value, vars);
+}
+
+// Selects a plural form with Intl.PluralRules. Locale files store
+// { one, few, many, other } objects; `{n}` and `{count}` are filled automatically.
+export function tp(key, count, vars) {
+  const value = lookup(key);
+  if (value == null) return key;
+  const args = { ...vars, n: count, count };
+  if (typeof value === 'string') return interpolate(value, args);
+  if (typeof value !== 'object') return key;
+  const category = new Intl.PluralRules(locale).select(count);
+  const template = value[category] ?? value.other ?? value.one;
+  return typeof template === 'string' ? interpolate(template, args) : key;
 }
 
 export function getLocale() {

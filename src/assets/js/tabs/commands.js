@@ -1,4 +1,4 @@
-import { t } from '../i18n.js';
+import { t, tp } from '../i18n.js';
 import { COMMAND_SCOPES, LIMITS } from '../data.js';
 import { parseCommands, formatCommands } from '../commands.js';
 import { validateChatId, validateUserId, parseChatId } from '../validators.js';
@@ -87,7 +87,7 @@ export default {
       await withBusy(event.submitter, async () => {
         try {
           await app.api.call(request.method, request.params);
-          toast(t('commands.saved', { n: request.params.commands.length }));
+          toast(tp('commands.saved', request.params.commands.length));
         } catch (error) {
           showError(error);
         }

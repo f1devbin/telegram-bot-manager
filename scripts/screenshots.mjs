@@ -113,9 +113,11 @@ const { chromium } = await loadPlaywright();
 const browser = await chromium.launch();
 const errors = [];
 
-async function openApp({ theme = 'dark', lang = '', width = 1280, height = 900 } = {}) {
+async function openApp({ theme = 'dark', lang = '', width = 1280, height = 900, locale } = {}) {
   const mock = createMock();
-  const context = await browser.newContext({ viewport: { width, height }, colorScheme: theme, deviceScaleFactor: 1 });
+  const context = await browser.newContext({
+    viewport: { width, height }, colorScheme: theme, deviceScaleFactor: 1, ...(locale ? { locale } : {}),
+  });
   const page = await context.newPage();
   page.on('pageerror', (e) => errors.push(`pageerror: ${e.message}`));
   page.on('console', (m) => {
@@ -152,6 +154,8 @@ async function connect(page) {
   await page.waitForSelector('#app:not([hidden])');
   await page.waitForSelector('#webhook-status .stats');
   await page.waitForSelector('#bot-avatar img');
+  await page.waitForFunction(() => document.activeElement?.id === 'tab-webhook');
+  assert(await page.evaluate(() => document.activeElement?.id) === 'tab-webhook', 'focus moves to the active tab');
 }
 
 try {
@@ -163,7 +167,25 @@ try {
     await page.fill('#token', 'bad');
     await page.click('#connect-form button[type="submit"]');
     assert(await page.locator('.field-error').isVisible(), 'token validation');
+    const describedBy = await page.getAttribute('#token', 'aria-describedby');
+    assert(describedBy && await page.locator(`#${describedBy}`).isVisible(), 'token error is linked to the field');
     await shot(page, 'landing.png');
+    const themePressed = await page.getAttribute('#theme-toggle', 'aria-pressed');
+    await page.click('#theme-toggle');
+    assert((await page.getAttribute('#theme-toggle', 'aria-pressed')) !== themePressed, 'theme toggle exposes its state');
+    await context.close();
+  }
+
+  // Browser-language suggestion (a banner, not a redirect)
+  {
+    const { page, context } = await openApp({ theme: 'light', locale: 'ru-RU' });
+    await page.waitForSelector('#lang-suggest:not([hidden])');
+    assert((await page.textContent('#lang-suggest-link')) === 'Русский', 'language suggestion');
+    assert((await page.getAttribute('#lang-suggest-link', 'href')) === 'ru/', 'language suggestion link');
+    await page.click('#lang-suggest-dismiss');
+    assert(await page.locator('#lang-suggest').isHidden(), 'language suggestion dismissed');
+    await page.reload();
+    assert(await page.locator('#lang-suggest').isHidden(), 'language suggestion stays dismissed');
     await context.close();
   }
 
@@ -172,6 +194,11 @@ try {
     const { page, mock, context } = await openApp();
     await connect(page);
     assert((await page.textContent('#bot-name')) === 'Demo Helper Bot', 'bot name');
+    const unnamedGroups = await page.locator('[role="radiogroup"]').evaluateAll((groups) => groups.filter((group) => {
+      const labelledBy = group.getAttribute('aria-labelledby');
+      return !group.getAttribute('aria-label') && !(labelledBy && document.getElementById(labelledBy));
+    }).length);
+    assert(unnamedGroups === 0, 'radio groups have accessible names');
     assert((await page.textContent('#webhook-status')).includes('502 Bad Gateway'), 'last error shown');
     assert(await page.isChecked('input[name="wh-updates-mode"][value="custom"]'), 'custom updates mode');
     assert(await page.isChecked('input[value="chat_member"]'), 'chat_member checked');

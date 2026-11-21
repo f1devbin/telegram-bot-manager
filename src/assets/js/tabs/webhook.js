@@ -1,4 +1,4 @@
-import { t, formatDateTime, formatRelative } from '../i18n.js';
+import { t, tp, formatDateTime, formatRelative } from '../i18n.js';
 import { UPDATE_GROUPS } from '../data.js';
 import {
   validateWebhookUrl, validateSecretToken, validateMaxConnections, validateIpAddress, generateSecretToken,
@@ -189,7 +189,7 @@ function initForms() {
     }
     const secret = $('#drop-secret');
     if (!applyValidation([[secret, validateSecretToken(secret.value.trim())]])) return;
-    if (!confirmAction(t('webhook.dropConfirm', { count: info.pending_update_count ?? 0 }))) return;
+    if (!confirmAction(tp('webhook.dropConfirm', info.pending_update_count ?? 0))) return;
     await withBusy(event.submitter, async () => {
       try {
         // allowed_updates is omitted on purpose: Telegram keeps the previous value.

@@ -110,8 +110,8 @@
         </div>
 
         <fieldset class="fieldset">
-          <legend>{{t.ui.webhook.allowedUpdates}}</legend>
-          <div class="segmented" role="radiogroup">
+          <legend id="wh-updates-legend">{{t.ui.webhook.allowedUpdates}}</legend>
+          <div class="segmented" role="radiogroup" aria-labelledby="wh-updates-legend">
             <label><input type="radio" name="wh-updates-mode" value="default" checked> <span>{{t.ui.webhook.updatesDefault}}</span></label>
             <label><input type="radio" name="wh-updates-mode" value="custom"> <span>{{t.ui.webhook.updatesCustom}}</span></label>
           </div>
@@ -188,9 +188,9 @@
       <hr class="divider">
 
       <form id="photo-form" class="form" novalidate>
-        <h3>{{t.ui.photo.title}}</h3>
+        <h3 id="photo-type-title">{{t.ui.photo.title}}</h3>
         <p class="muted">{{t.ui.photo.intro}}</p>
-        <div class="segmented" role="radiogroup">
+        <div class="segmented" role="radiogroup" aria-labelledby="photo-type-title">
           <label><input type="radio" name="photo-type" value="static" checked> <span>{{t.ui.photo.static}}</span></label>
           <label><input type="radio" name="photo-type" value="animated"> <span>{{t.ui.photo.animated}}</span></label>
         </div>
@@ -258,7 +258,7 @@
     <!-- Menu button -->
     <section class="card panel" role="tabpanel" id="panel-menu" aria-labelledby="tab-menu" hidden>
       <div class="panel-head">
-        <h2>{{t.ui.menu.title}}</h2>
+        <h2 id="menu-title">{{t.ui.menu.title}}</h2>
       </div>
       <p class="muted">{{t.ui.menu.intro}}</p>
       <p class="hint">{{{t.ui.menu.miniAppHint}}}</p>
@@ -272,7 +272,7 @@
         </div>
       </div>
       <form id="menu-form" class="form" novalidate>
-        <div class="segmented" role="radiogroup">
+        <div class="segmented" role="radiogroup" aria-labelledby="menu-title">
           <label><input type="radio" name="menu-type" value="default" checked> <span>{{t.ui.menu.typeDefault}}</span></label>
           <label><input type="radio" name="menu-type" value="commands"> <span>{{t.ui.menu.typeCommands}}</span></label>
           <label><input type="radio" name="menu-type" value="web_app"> <span>{{t.ui.menu.typeWebApp}}</span></label>
@@ -298,10 +298,10 @@
     <!-- Admin rights -->
     <section class="card panel" role="tabpanel" id="panel-rights" aria-labelledby="tab-rights" hidden>
       <div class="panel-head">
-        <h2>{{t.ui.rights.title}}</h2>
+        <h2 id="rights-title">{{t.ui.rights.title}}</h2>
       </div>
       <p class="muted">{{t.ui.rights.intro}}</p>
-      <div class="segmented" role="radiogroup">
+      <div class="segmented" role="radiogroup" aria-labelledby="rights-title">
         <label><input type="radio" name="rights-target" value="groups" checked> <span>{{t.ui.rights.groups}}</span></label>
         <label><input type="radio" name="rights-target" value="channels"> <span>{{t.ui.rights.channels}}</span></label>
       </div>
@@ -337,6 +337,14 @@
 </section>
 
 <div class="landing" id="landing">
+  <div class="container">
+    <div class="alert alert-info lang-suggest" id="lang-suggest" hidden>
+      <p id="lang-suggest-text"></p>
+      <a class="btn btn-secondary btn-sm" id="lang-suggest-link" href="#"></a>
+      <button type="button" class="btn btn-ghost btn-sm" id="lang-suggest-dismiss"></button>
+    </div>
+  </div>
+
   <section class="container section" id="features">
     <h2>{{t.home.featuresTitle}}</h2>
     <div class="feature-grid">{{{home.features}}}</div>
@@ -363,5 +371,5 @@
   </section>
 </div>
 
-<div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="false"></div>
+<div class="toast-region" id="toast-region"></div>
 <script type="application/json" id="i18n-data">{{{page.i18nJson}}}</script>

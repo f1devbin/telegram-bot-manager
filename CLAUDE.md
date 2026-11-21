@@ -10,8 +10,8 @@ Static site (GitHub Pages) that calls the Telegram Bot API from the browser. No 
 
 ## Updating to a new Bot API version
 
-1. `node scripts/check-bot-api.mjs` — lists new update types, admin rights, getMe flags, command scopes, setWebhook params and bot-settings methods (spec: PaulSonOfLars/telegram-bot-api-spec; core.telegram.org may be unreachable).
-2. Update `src/assets/js/data.js`: `UPDATE_GROUPS` (mark `optIn` if the spec says it must be requested explicitly), `ADMIN_RIGHTS` (with `target`), `ME_FLAGS`, `COMMAND_SCOPES`, `BOT_API_VERSION`.
+1. `node scripts/check-bot-api.mjs` — lists new update types, admin rights, getMe flags, command scopes, BotCommand/MenuButton/WebhookInfo fields, parameters of every method the tool calls, and bot-settings methods (spec: PaulSonOfLars/telegram-bot-api-spec; core.telegram.org may be unreachable). It also warns when the spec release date is stale, so an outdated spec source is not mistaken for “no changes”.
+2. Update `src/assets/js/data.js`: `UPDATE_GROUPS` (mark `optIn` if the spec says it must be requested explicitly), `ADMIN_RIGHTS` (with `target`), `ME_FLAGS`, `COMMAND_SCOPES`, `BOT_API_VERSION`. If a new parameter appears on a method the tool already calls, add it to `METHOD_PARAMS` in `scripts/check-bot-api.mjs` and expose it in the UI when it matters.
 3. Add labels for every new key to all five locale files (`app.updates.*`, `app.rights.*`, `app.me.*`, `app.scopes.*`). `npm test` lists anything missing.
 4. A new bot-settings method that needs its own UI (a new tab or form) is a design change: describe it in the PR instead of building it silently.
 5. Update `CHANGELOG.md` and the version badge in `README.md`; bump `package.json` patch/minor version.

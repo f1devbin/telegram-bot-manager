@@ -301,6 +301,11 @@
     }
   },
   "app": {
+    "langSuggest": {
+      "text": "Este sitio también está disponible en otros idiomas.",
+      "open": "Abrir la versión en {language}",
+      "dismiss": "Descartar"
+    },
     "common": {
       "copied": "Copiado al portapapeles",
       "copyFailed": "No se pudo copiar: selecciona el texto manualmente",
@@ -379,7 +384,12 @@
       "secretGenerated": "Secreto generado. Guárdalo en la configuración del servidor antes de configurar el webhook.",
       "saved": "Webhook guardado.",
       "noWebhook": "El webhook no está configurado.",
-      "dropConfirm": "¿Descartar {count} actualización(es) pendiente(s)? Se perderán.",
+      "dropConfirm": {
+        "one": "¿Descartar {count} actualización pendiente? Se perderá.",
+        "few": "¿Descartar {count} actualizaciones pendientes? Se perderán.",
+        "many": "¿Descartar {count} actualizaciones pendientes? Se perderán.",
+        "other": "¿Descartar {count} actualizaciones pendientes? Se perderán."
+      },
       "dropped": "Actualizaciones pendientes descartadas.",
       "deleteConfirm": "¿Eliminar el webhook? El bot dejará de recibir actualizaciones en esta URL.",
       "deleted": "Webhook eliminado. Ahora el bot puede usar getUpdates.",
@@ -448,7 +458,12 @@
     },
     "commands": {
       "line": "Línea {n}",
-      "saved": "{n} comando(s) guardado(s).",
+      "saved": {
+        "one": "Se guardó {n} comando.",
+        "few": "Se guardaron {n} comandos.",
+        "many": "Se guardaron {n} comandos.",
+        "other": "Se guardaron {n} comandos."
+      },
       "deleteConfirm": "¿Eliminar la lista de comandos para este ámbito e idioma?",
       "deleted": "Comandos eliminados."
     },
