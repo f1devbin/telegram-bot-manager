@@ -27,24 +27,42 @@ jobs:
           code=$?
           cat report.md
           echo "status=$code" >> "$GITHUB_OUTPUT"
+          if grep -q "source may be stale" report.md; then
+            echo "stale=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "stale=false" >> "$GITHUB_OUTPUT"
+          fi
           [ "$code" -le 1 ]
       - name: Open or update issue
-        if: steps.check.outputs.status == '1'
+        if: steps.check.outputs.status == '1' || steps.check.outputs.stale == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh label create bot-api-update --color 2481cc --description "Telegram Bot API changed" 2>/dev/null || true
           version=$(sed -n 's/^Spec: \*\*Bot API \([0-9.]*\)\*\*.*/\1/p' report.md)
+          stale="${{ steps.check.outputs.stale }}"
+          status="${{ steps.check.outputs.status }}"
           {
-            echo "The Telegram Bot API spec differs from \`src/assets/js/data.js\`."
+            if [ "$status" = "1" ]; then
+              echo "The Telegram Bot API spec differs from \`src/assets/js/data.js\`."
+            else
+              echo "The Bot API spec source may be stale; the check could not confirm that the project is up to date."
+            fi
             echo
             cat report.md
             echo
-            echo "To update: edit \`src/assets/js/data.js\` (lists and \`BOT_API_VERSION\`), add labels to all \`src/i18n/*.json\`, add new method parameters to \`METHOD_PARAMS\` in \`scripts/check-bot-api.mjs\`, then run \`npm test\` and \`node scripts/check-bot-api.mjs\`."
+            echo "If this is a real API change: edit \`src/assets/js/data.js\` (lists and \`BOT_API_VERSION\`), add labels to all \`src/i18n/*.json\`, add new method parameters to \`METHOD_PARAMS\` in \`scripts/check-bot-api.mjs\`, then run \`npm test\` and \`node scripts/check-bot-api.mjs\`."
+            echo
+            echo "If the spec source looks stale, verify https://core.telegram.org/bots/api before changing the project."
           } > body.md
+          if [ "$stale" = "true" ] && [ "$status" != "1" ]; then
+            title="Bot API spec source may be stale"
+          else
+            title="Update to Telegram Bot API $version"
+          fi
           existing=$(gh issue list --label bot-api-update --state open --json number --jq '.[0].number')
           if [ -n "$existing" ]; then
-            gh issue edit "$existing" --title "Update to Telegram Bot API $version" --body-file body.md
+            gh issue edit "$existing" --title "$title" --body-file body.md
           else
-            gh issue create --title "Update to Telegram Bot API $version" --label bot-api-update --body-file body.md
+            gh issue create --title "$title" --label bot-api-update --body-file body.md
           fi

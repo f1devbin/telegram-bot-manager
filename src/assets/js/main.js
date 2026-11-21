@@ -4,14 +4,16 @@ import { DEFAULT_API_BASE, LANGUAGE_CODES, ME_FLAGS } from './data.js';
 import { validateToken, validateApiBase, normalizeApiBase } from './validators.js';
 import * as storage from './storage.js';
 import { $, $$, el, describeError, withBusy, copyText, bindCounters, badge, showError, applyValidation } from './ui.js';
-import webhookTab from './tabs/webhook.js';
-import profileTab from './tabs/profile.js';
-import commandsTab from './tabs/commands.js';
-import menuTab from './tabs/menu.js';
-import rightsTab from './tabs/rights.js';
-import devTab from './tabs/dev.js';
-
-const TABS = [webhookTab, profileTab, commandsTab, menuTab, rightsTab, devTab];
+// Tab controllers are imported on first activation: the landing page only needs the
+// connection form, so the editor code is not part of its initial module graph.
+const TABS = [
+  { id: 'webhook', loader: () => import('./tabs/webhook.js') },
+  { id: 'profile', loader: () => import('./tabs/profile.js') },
+  { id: 'commands', loader: () => import('./tabs/commands.js') },
+  { id: 'menu', loader: () => import('./tabs/menu.js') },
+  { id: 'rights', loader: () => import('./tabs/rights.js') },
+  { id: 'dev', loader: () => import('./tabs/dev.js'), alwaysReload: true },
+];
 const LOG_LIMIT = 100;
 const LANGUAGE_SUGGESTIONS = [
   { code: 'ru', prefix: 'ru/', name: 'Русский' },
@@ -40,6 +42,8 @@ const app = {
 };
 
 const loadedTabs = new Set();
+const tabControllers = new Map();
+const tabLoads = new Map();
 let avatarUrl = null;
 let activeTab = null;
 
@@ -210,6 +214,19 @@ function activateTab(id, { focus = false } = {}) {
   loadTab(id);
 }
 
+async function ensureTab(tab) {
+  if (tabControllers.has(tab.id)) return tabControllers.get(tab.id);
+  if (!tabLoads.has(tab.id)) {
+    tabLoads.set(tab.id, tab.loader().then((module) => {
+      const controller = module.default;
+      controller.init(app);
+      tabControllers.set(tab.id, controller);
+      return controller;
+    }).finally(() => tabLoads.delete(tab.id)));
+  }
+  return tabLoads.get(tab.id);
+}
+
 async function loadTab(id, force = false) {
   const tab = TABS.find((x) => x.id === id);
   if (!app.api || (loadedTabs.has(id) && !force && !tab.alwaysReload)) return;
@@ -217,7 +234,8 @@ async function loadTab(id, force = false) {
   const panel = $(`#panel-${id}`);
   panel.classList.add('is-loading');
   try {
-    await tab.load(app);
+    const controller = await ensureTab(tab);
+    await controller.load(app);
   } catch (error) {
     loadedTabs.delete(id);
     showError(error);
@@ -242,7 +260,7 @@ function initTabs() {
     const id = tabFromHash();
     if (id && app.api && id !== activeTab) activateTab(id);
   });
-  for (const tab of TABS) tab.init(app);
+  // Controllers are imported and initialised on the first tab activation.
 }
 
 // ---------- Misc UI ----------

@@ -93,7 +93,7 @@ npm run build && node scripts/screenshots.mjs   # e2e smoke test (Playwright + C
 ## Automation
 
 - **CI** (`.github/workflows/ci.yml`, on pull requests): unit tests, build, end-to-end test in Chromium against a mocked Bot API, and a Lighthouse audit (accessibility ≥ 95, best practices ≥ 90 and SEO ≥ 95 are errors; performance ≥ 85 is a warning; reports are attached to the run).
-- **Bot API watch** (`.github/workflows/bot-api-watch.yml`, weekly): compares the latest Bot API spec with `src/assets/js/data.js` via `scripts/check-bot-api.mjs` — update types, admin rights, `getMe` flags, scopes, `BotCommand`/`MenuButton`/`WebhookInfo` fields and the parameters of every method the tool calls — and opens an issue labelled `bot-api-update` when something is missing. A stale spec source is reported as a warning.
+- **Bot API watch** (`.github/workflows/bot-api-watch.yml`, weekly): compares the latest Bot API spec with `src/assets/js/data.js` via `scripts/check-bot-api.mjs` — update types, admin rights, `getMe` flags, scopes, `BotCommand`/`MenuButton`/`InputProfilePhoto`/`WebhookInfo` fields and the parameters of every method the tool calls — and opens an issue labelled `bot-api-update` when something is missing or the spec source looks stale.
 - **Agent instructions** for updating the project are in [`CLAUDE.md`](CLAUDE.md).
 
 ## FAQ
