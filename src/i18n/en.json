@@ -301,6 +301,11 @@
     }
   },
   "app": {
+    "langSuggest": {
+      "text": "This site is also available in other languages.",
+      "open": "Open the {language} version",
+      "dismiss": "Dismiss"
+    },
     "common": {
       "copied": "Copied to clipboard",
       "copyFailed": "Could not copy — select the text manually",
@@ -379,7 +384,12 @@
       "secretGenerated": "Secret generated. Save it in your server config before setting the webhook.",
       "saved": "Webhook saved.",
       "noWebhook": "The webhook is not set.",
-      "dropConfirm": "Drop {count} pending update(s)? They will be lost.",
+      "dropConfirm": {
+        "one": "Drop {count} pending update? It will be lost.",
+        "few": "Drop {count} pending updates? They will be lost.",
+        "many": "Drop {count} pending updates? They will be lost.",
+        "other": "Drop {count} pending updates? They will be lost."
+      },
       "dropped": "Pending updates dropped.",
       "deleteConfirm": "Delete the webhook? The bot will stop receiving updates on this URL.",
       "deleted": "Webhook deleted. The bot can use getUpdates now.",
@@ -448,7 +458,12 @@
     },
     "commands": {
       "line": "Line {n}",
-      "saved": "Saved {n} command(s).",
+      "saved": {
+        "one": "Saved {n} command.",
+        "few": "Saved {n} commands.",
+        "many": "Saved {n} commands.",
+        "other": "Saved {n} commands."
+      },
       "deleteConfirm": "Delete the command list for this scope and language?",
       "deleted": "Commands deleted."
     },

@@ -113,9 +113,11 @@ const { chromium } = await loadPlaywright();
 const browser = await chromium.launch();
 const errors = [];
 
-async function openApp({ theme = 'dark', lang = '', width = 1280, height = 900 } = {}) {
+async function openApp({ theme = 'dark', lang = '', width = 1280, height = 900, locale } = {}) {
   const mock = createMock();
-  const context = await browser.newContext({ viewport: { width, height }, colorScheme: theme, deviceScaleFactor: 1 });
+  const context = await browser.newContext({
+    viewport: { width, height }, colorScheme: theme, deviceScaleFactor: 1, ...(locale ? { locale } : {}),
+  });
   const page = await context.newPage();
   page.on('pageerror', (e) => errors.push(`pageerror: ${e.message}`));
   page.on('console', (m) => {
@@ -171,6 +173,19 @@ try {
     const themePressed = await page.getAttribute('#theme-toggle', 'aria-pressed');
     await page.click('#theme-toggle');
     assert((await page.getAttribute('#theme-toggle', 'aria-pressed')) !== themePressed, 'theme toggle exposes its state');
+    await context.close();
+  }
+
+  // Browser-language suggestion (a banner, not a redirect)
+  {
+    const { page, context } = await openApp({ theme: 'light', locale: 'ru-RU' });
+    await page.waitForSelector('#lang-suggest:not([hidden])');
+    assert((await page.textContent('#lang-suggest-link')) === 'Русский', 'language suggestion');
+    assert((await page.getAttribute('#lang-suggest-link', 'href')) === 'ru/', 'language suggestion link');
+    await page.click('#lang-suggest-dismiss');
+    assert(await page.locator('#lang-suggest').isHidden(), 'language suggestion dismissed');
+    await page.reload();
+    assert(await page.locator('#lang-suggest').isHidden(), 'language suggestion stays dismissed');
     await context.close();
   }
 

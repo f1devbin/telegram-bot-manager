@@ -13,6 +13,12 @@ import devTab from './tabs/dev.js';
 
 const TABS = [webhookTab, profileTab, commandsTab, menuTab, rightsTab, devTab];
 const LOG_LIMIT = 100;
+const LANGUAGE_SUGGESTIONS = [
+  { code: 'ru', prefix: 'ru/', name: 'Русский' },
+  { code: 'es', prefix: 'es/', name: 'Español' },
+  { code: 'pt', prefix: 'pt/', name: 'Português' },
+  { code: 'zh', prefix: 'zh/', name: '简体中文' },
+];
 
 const bus = new EventTarget();
 
@@ -250,6 +256,35 @@ function initLanguageSelects() {
   }
 }
 
+// The root page is English. Suggest a localized version instead of redirecting,
+// so search engines still see one canonical page per language.
+function initLanguageSuggestion() {
+  const box = $('#lang-suggest');
+  if (!box || document.documentElement.lang !== 'en') return;
+  if (storage.get('langSuggestionDismissed')) return;
+  const preferred = (navigator.languages?.length ? navigator.languages : [navigator.language])
+    .map((code) => String(code).toLowerCase().split('-')[0]);
+  const suggestion = LANGUAGE_SUGGESTIONS.find((lang) => preferred.includes(lang.code));
+  if (!suggestion) return;
+
+  $('#lang-suggest-text').textContent = t('langSuggest.text');
+  const link = $('#lang-suggest-link');
+  link.textContent = suggestion.name;
+  link.href = suggestion.prefix;
+  link.hreflang = suggestion.code;
+  link.lang = suggestion.code;
+  link.setAttribute('aria-label', t('langSuggest.open', { language: suggestion.name }));
+
+  const dismiss = $('#lang-suggest-dismiss');
+  dismiss.textContent = t('langSuggest.dismiss');
+  dismiss.addEventListener('click', () => {
+    box.hidden = true;
+    storage.set('langSuggestionDismissed', '1');
+  });
+  link.addEventListener('click', () => storage.set('langSuggestionDismissed', '1'));
+  box.hidden = false;
+}
+
 function initHeader() {
   // Close header dropdowns when clicking elsewhere.
   document.addEventListener('click', (event) => {
@@ -308,6 +343,7 @@ function init() {
   if (!$('#app')) return; // Guide pages have no app.
   initGlobalButtons();
   initLanguageSelects();
+  initLanguageSuggestion();
   bindCounters();
   initTabs();
   initConnectForm();

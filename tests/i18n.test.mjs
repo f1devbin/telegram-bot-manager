@@ -4,7 +4,7 @@ import { readFile, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { loadLocales, LANGS } from '../scripts/build.mjs';
 import { UPDATE_TYPES, ADMIN_RIGHTS, ME_FLAGS, COMMAND_SCOPES, UPDATE_GROUPS } from '../src/assets/js/data.js';
-import { setDictionary, hasKey, t } from '../src/assets/js/i18n.js';
+import { setDictionary, hasKey, t, tp } from '../src/assets/js/i18n.js';
 
 const JS_DIR = new URL('../src/assets/js/', import.meta.url).pathname;
 
@@ -55,6 +55,53 @@ test('t() interpolates variables', () => {
   setDictionary({ a: { b: 'Hello {name}, {missing}' } }, 'en');
   assert.equal(t('a.b', { name: 'bot' }), 'Hello bot, {missing}');
   assert.equal(t('a.unknown'), 'a.unknown');
+});
+
+test('tp() selects the plural form for the locale', () => {
+  setDictionary({
+    a: { b: { one: 'one {count}', few: 'few {count}', many: 'many {count}', other: 'other {count}' } },
+  }, 'ru');
+  assert.equal(hasKey('a.b'), true);
+  assert.equal(tp('a.b', 1), 'one 1');
+  assert.equal(tp('a.b', 2), 'few 2');
+  assert.equal(tp('a.b', 5), 'many 5');
+  assert.equal(tp('a.b', 1.5), 'other 1.5');
+  assert.equal(tp('a.missing', 1), 'a.missing');
+});
+
+test('plural messages are complete in every locale', async () => {
+  const locales = await loadLocales();
+  for (const lang of LANGS) {
+    const app = locales[lang.code].app;
+    for (const path of ['webhook.dropConfirm', 'commands.saved']) {
+      const value = path.split('.').reduce((node, key) => node[key], app);
+      assert.equal(typeof value, 'object', `${lang.code}.${path} must be a plural object`);
+      for (const form of ['one', 'few', 'many', 'other']) {
+        assert.equal(typeof value[form], 'string', `${lang.code}.${path}.${form} is missing`);
+      }
+      assert.ok(!/\((s|es|ões)\)/.test(JSON.stringify(value)), `${lang.code}.${path} still uses the "(s)" workaround`);
+    }
+  }
+});
+
+test('non-English locales have no untranslated long strings', async () => {
+  const locales = await loadLocales();
+  // Product names and API field names are intentionally identical.
+  const allowed = new Set(['allowed_updates', 'Telegram Business']);
+  const problems = [];
+  const walk = (base, other, path = '') => {
+    for (const key of Object.keys(base)) {
+      const source = base[key];
+      const translated = other?.[key];
+      if (typeof source === 'string' && typeof translated === 'string') {
+        if (source.length > 12 && source === translated && !allowed.has(source)) problems.push(`${path}${key}: ${source}`);
+      } else if (source && typeof source === 'object') {
+        walk(source, translated, `${path}${key}.`);
+      }
+    }
+  };
+  for (const lang of LANGS.filter((l) => l.code !== 'en')) walk(locales.en, locales[lang.code]);
+  assert.deepEqual(problems, [], `untranslated strings:\n  ${problems.join('\n  ')}`);
 });
 
 test('SEO titles and descriptions fit search snippets', async () => {
