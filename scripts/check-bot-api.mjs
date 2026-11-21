@@ -49,6 +49,7 @@ export const WEBHOOK_INFO_FIELDS = [
 ];
 export const BOT_COMMAND_FIELDS = ['command', 'description', 'is_ephemeral'];
 export const MENU_BUTTON_TYPES = ['MenuButtonCommands', 'MenuButtonWebApp', 'MenuButtonDefault'];
+export const INPUT_PROFILE_PHOTO_TYPES = ['InputProfilePhotoStatic', 'InputProfilePhotoAnimated'];
 
 // A stale spec source is a silent-drift risk: it can look "up to date" while Telegram has
 // already shipped a newer API. The report warns when the spec release date is older than this.
@@ -123,6 +124,7 @@ export async function checkBotApi(spec, { now = new Date(), maxSpecAgeDays = MAX
     ),
     botCommandFields: diff(fields('BotCommand'), BOT_COMMAND_FIELDS),
     menuButtonTypes: diff(spec.types.MenuButton?.subtypes ?? [], MENU_BUTTON_TYPES),
+    profilePhotoTypes: diff(spec.types.InputProfilePhoto?.subtypes ?? [], INPUT_PROFILE_PHOTO_TYPES),
     webhookInfoFields: diff(fields('WebhookInfo'), WEBHOOK_INFO_FIELDS),
     methodParams,
     uncheckedMethods: { added: uncheckedMethods, removed: [] },
@@ -133,7 +135,7 @@ export async function checkBotApi(spec, { now = new Date(), maxSpecAgeDays = MAX
   };
   const sections = [
     report.updateTypes, report.adminRights, report.meFlags, report.commandScopes,
-    report.botCommandFields, report.menuButtonTypes, report.webhookInfoFields,
+    report.botCommandFields, report.menuButtonTypes, report.profilePhotoTypes, report.webhookInfoFields,
     report.methodParams, report.uncheckedMethods, report.botSettingsMethods,
   ];
   report.upToDate = report.specVersion === report.ourVersion
@@ -154,6 +156,7 @@ export function toMarkdown(r) {
     commandScopes: 'BotCommandScope types',
     botCommandFields: 'BotCommand fields',
     menuButtonTypes: 'MenuButton types',
+    profilePhotoTypes: 'InputProfilePhoto types',
     webhookInfoFields: 'WebhookInfo fields',
     methodParams: 'Method parameters',
     uncheckedMethods: 'Used methods without a parameter check',

@@ -119,6 +119,8 @@ async function openApp({ theme = 'dark', lang = '', width = 1280, height = 900, 
     viewport: { width, height }, colorScheme: theme, deviceScaleFactor: 1, ...(locale ? { locale } : {}),
   });
   const page = await context.newPage();
+  const requests = [];
+  page.on('request', (request) => requests.push(request.url()));
   page.on('pageerror', (e) => errors.push(`pageerror: ${e.message}`));
   page.on('console', (m) => {
     // Failed mocked requests (e.g. the deliberate 429) are logged by the browser; they are expected.
@@ -138,7 +140,7 @@ async function openApp({ theme = 'dark', lang = '', width = 1280, height = 900, 
     return route.fulfill({ status: json.ok ? 200 : json.error_code, contentType: 'application/json', body: JSON.stringify(json), headers: { 'access-control-allow-origin': '*' } });
   });
   await page.goto(`${base}${lang}`);
-  return { page, mock, context };
+  return { page, mock, context, requests };
 }
 
 async function shot(page, name, options = {}) {
@@ -161,9 +163,10 @@ async function connect(page) {
 try {
   // Landing page
   {
-    const { page, context } = await openApp({ theme: 'light' });
+    const { page, context, requests } = await openApp({ theme: 'light' });
     assert(await page.title() !== '', 'title');
     assert((await page.locator('link[rel="alternate"][hreflang]').count()) === 6, 'hreflang links');
+    assert(!requests.some((url) => url.includes('/assets/js/tabs/')), 'tab modules load lazily');
     await page.fill('#token', 'bad');
     await page.click('#connect-form button[type="submit"]');
     assert(await page.locator('.field-error').isVisible(), 'token validation');

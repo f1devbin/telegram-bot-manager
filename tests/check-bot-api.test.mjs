@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import {
   checkBotApi, toMarkdown, usedMethods, METHOD_PARAMS, WEBHOOK_INFO_FIELDS, BOT_COMMAND_FIELDS, MENU_BUTTON_TYPES,
+  INPUT_PROFILE_PHOTO_TYPES,
 } from '../scripts/check-bot-api.mjs';
 import { loadLocales, LANGS } from '../scripts/build.mjs';
 import * as data from '../src/assets/js/data.js';
@@ -20,6 +21,7 @@ function specFromProject() {
     BotCommandScope: { subtypes: scopeTypes },
     BotCommand: { fields: BOT_COMMAND_FIELDS.map((n) => field(n)) },
     MenuButton: { subtypes: [...MENU_BUTTON_TYPES] },
+    InputProfilePhoto: { subtypes: [...INPUT_PROFILE_PHOTO_TYPES] },
     WebhookInfo: { fields: WEBHOOK_INFO_FIELDS.map((n) => field(n)) },
   };
   data.COMMAND_SCOPES.forEach((s, i) => {
@@ -60,6 +62,7 @@ test('detects new method parameters and object fields', async () => {
   spec.types.WebhookInfo.fields.push(field('new_info_field'));
   spec.types.BotCommand.fields.push(field('new_command_field'));
   spec.types.MenuButton.subtypes.push('MenuButtonNew');
+  spec.types.InputProfilePhoto.subtypes.push('InputProfilePhotoNew');
   const report = await checkBotApi(spec, { now: NOW });
   assert.equal(report.upToDate, false);
   assert.deepEqual(report.methodParams.added, ['setMyCommands.new_parameter']);
@@ -67,6 +70,7 @@ test('detects new method parameters and object fields', async () => {
   assert.deepEqual(report.webhookInfoFields.added, ['new_info_field']);
   assert.deepEqual(report.botCommandFields.added, ['new_command_field']);
   assert.deepEqual(report.menuButtonTypes.added, ['MenuButtonNew']);
+  assert.deepEqual(report.profilePhotoTypes.added, ['InputProfilePhotoNew']);
   const md = toMarkdown(report);
   assert.ok(md.includes('`setMyCommands.new_parameter`') && md.includes('### WebhookInfo fields'));
 });

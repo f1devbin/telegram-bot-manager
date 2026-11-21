@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.4.0 — 2026-11-21
+
+### Changed
+- Tab editors are imported only when a tab is opened; the landing page no longer downloads the whole editor module graph.
+- The Bot API drift check also covers `InputProfilePhoto` subtypes.
+- The weekly Bot API watch opens or updates an issue when the spec source looks stale, not only when fields differ.
+
 ## 3.3.1 — 2026-11-21
 
 ### Fixed
