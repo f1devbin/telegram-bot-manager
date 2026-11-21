@@ -63,7 +63,7 @@ async function connect({ token, remember, apiBase }) {
   renderBot();
   loadAvatar();
   loadStars();
-  activateTab(tabFromHash() ?? 'webhook');
+  activateTab(tabFromHash() ?? 'webhook', { focus: true });
   window.scrollTo(0, 0);
 }
 
@@ -261,12 +261,16 @@ function initHeader() {
 }
 
 function initThemeToggle() {
-  $('#theme-toggle').addEventListener('click', () => {
-    const current = document.documentElement.dataset.theme
-      ?? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    const next = current === 'dark' ? 'light' : 'dark';
+  const button = $('#theme-toggle');
+  const currentTheme = () => document.documentElement.dataset.theme
+    ?? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  const sync = () => button.setAttribute('aria-pressed', String(currentTheme() === 'dark'));
+  sync();
+  button.addEventListener('click', () => {
+    const next = currentTheme() === 'dark' ? 'light' : 'dark';
     document.documentElement.dataset.theme = next;
     storage.set('theme', next);
+    sync();
   });
 }
 

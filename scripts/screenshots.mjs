@@ -152,6 +152,8 @@ async function connect(page) {
   await page.waitForSelector('#app:not([hidden])');
   await page.waitForSelector('#webhook-status .stats');
   await page.waitForSelector('#bot-avatar img');
+  await page.waitForFunction(() => document.activeElement?.id === 'tab-webhook');
+  assert(await page.evaluate(() => document.activeElement?.id) === 'tab-webhook', 'focus moves to the active tab');
 }
 
 try {
@@ -163,7 +165,12 @@ try {
     await page.fill('#token', 'bad');
     await page.click('#connect-form button[type="submit"]');
     assert(await page.locator('.field-error').isVisible(), 'token validation');
+    const describedBy = await page.getAttribute('#token', 'aria-describedby');
+    assert(describedBy && await page.locator(`#${describedBy}`).isVisible(), 'token error is linked to the field');
     await shot(page, 'landing.png');
+    const themePressed = await page.getAttribute('#theme-toggle', 'aria-pressed');
+    await page.click('#theme-toggle');
+    assert((await page.getAttribute('#theme-toggle', 'aria-pressed')) !== themePressed, 'theme toggle exposes its state');
     await context.close();
   }
 
@@ -172,6 +179,11 @@ try {
     const { page, mock, context } = await openApp();
     await connect(page);
     assert((await page.textContent('#bot-name')) === 'Demo Helper Bot', 'bot name');
+    const unnamedGroups = await page.locator('[role="radiogroup"]').evaluateAll((groups) => groups.filter((group) => {
+      const labelledBy = group.getAttribute('aria-labelledby');
+      return !group.getAttribute('aria-label') && !(labelledBy && document.getElementById(labelledBy));
+    }).length);
+    assert(unnamedGroups === 0, 'radio groups have accessible names');
     assert((await page.textContent('#webhook-status')).includes('502 Bad Gateway'), 'last error shown');
     assert(await page.isChecked('input[name="wh-updates-mode"][value="custom"]'), 'custom updates mode');
     assert(await page.isChecked('input[value="chat_member"]'), 'chat_member checked');
